@@ -1,0 +1,193 @@
+{% set page_name = "big:index" %}
+{% extends "big/base.html" %}
+{% block main %}
+<div id="slideshow" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500">
+	<ol class="carousel-indicators">
+		<li data-target="#slideshow" data-slide-to="0" class="active"></li>
+		<li data-target="#slideshow" data-slide-to="1"></li>
+		<li data-target="#slideshow" data-slide-to="2"></li>
+		<li data-target="#slideshow" data-slide-to="3"></li>
+		<li data-target="#slideshow" data-slide-to="4"></li>
+	</ol>
+	<div class="carousel-inner">
+		{% for slide in slides %}
+		<div class="carousel-item {% if loop.first %}active{% endif %}">
+			{% if slide.link %}
+			<a href="{{ slide.link }}">
+				<img src="{{ slide.image.url }}" class="d-block w-100">
+			</a>
+			{% else %}
+			<img src="{{ slide.image.url }}" class="d-block w-100">
+			{% endif %}
+			{% if slide.title %}
+			<div class="carousel-caption">
+				<h4>{{ slide.title }}</h4>
+				{{ slide.description | safe }}
+			</div>
+			{% endif %}
+			{% if slide.extra %}
+			<div class="position-absolute bottom-0 right-0 px-2 text-white">
+				{{ slide.extra }}
+			</div>
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	<a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</a>
+	<a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</a>
+</div>
+{% if introduce %}
+<div class="container my-5">
+	<div class="row py-5 mt-md-2 g-5 align-items-center">
+		<div class="col-lg-7 pr-5">
+			<h3 class="text-success">{{ introduce.title }}</h3>
+			<p class="my-4 lh-lg">{{ introduce.content }}</p>
+			<p><a class="btn btn-outline-success" href="{{ url('big:about') }}">{{ _("了解更多") }}</a></p>
+		</div>
+		<div class="col-lg-5">
+			<div class="animate-hover">
+				{% if introduce.thumbnail %}
+				<img src="{{ introduce.thumbnail.url }}" class="img-fluid">
+				{% else %}
+				<img src="{{ static('big/image/lab.jpg') }}" class="img-fluid">
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% if interest %}
+<div class="bg-light my-5 py-5">
+	<div class="container py-5">
+		<div class="row g-5 align-items-center">
+			<div class="col-lg-5">
+				<div class="animate-hover">
+					{% if interest.thumbnail %}
+					<img src="{{ interest.thumbnail.url }}" class="img-fluid">
+					{% else %}
+					<img src="{{ static('big/image/research.jpg') }}" class="img-fluid">
+					{% endif %}
+				</div>	
+			</div>
+			<div class="col-lg-7 pl-5">
+				<h3 class="text-success">{{ interest.title }}</h3>
+				<p class="my-4 lh-lg">{{ interest.content }}</p>
+				<p class="text-right">
+					<a class="btn btn-outline-success" href="{{ url('big:research') }}">{{ _("了解更多") }}</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+<div class="container py-5">
+	<h3 class="text-success text-center">{{ _("测序技术") }}</h3>
+	<p class="text-center mt-3">{{ _("课题组主要使用二代和三代测序技术解密基因组信息") }}</p>
+	<div class="row g-5 row-cols-1 row-cols-md-2 row-cols-lg-4 mt-5 research-intresting">
+		{% for support in supports %}
+		<div class="col px-5">
+			<div class="border border-5 rounded-circle animate-hover d-inline-block">
+				<img src="{{ support.thumbnail.url }}" class="rounded-circle img-fluid" width="180">
+			</div>
+			<h4 class="my-3">{{ support.title }}</h4>
+			<p class="lh-lg">{{ support.content }}</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="bg-light my-5 py-5">
+	<div class="container py-5">
+		<h3 class="text-success text-center">{{ _("最新成果") }}</h3>
+		<div class="splide mt-5" id="pub-slider">
+			<div class="splide__track">
+				<ul class="splide__list">
+					{% for pub in pubs %}
+					<li class="splide__slide">
+						<div class="text-center px-5">
+							<p><img src="{{ pub.thumbnail.url }}" class="paper-thumbnail"></p>
+							<p class="lh-lg px-5">
+								{{ pub.authors }}.
+								{{ pub.title }}.
+								<strong>{{ pub.journal }}</strong>,
+								{{ pub.year }},
+								{% if pub.volume %}
+								{{ pub.volume }}
+								{% else %}
+								{{ pub.doi }}.
+								{% endif %}
+								{% if pub.issue %}
+								({{ pub.issue }}):
+								{% endif %}
+								{% if pub.pages %}
+								{{ pub.pages }}.
+								{% endif %}
+							</p>
+						</div>
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container py-5">
+	<h3 class="text-success text-center">{{ _("最新消息") }}</h3>
+	<div class="splide mt-5" id="card-slider">
+		<div class="splide__track">
+			<ul class="splide__list">
+				{% for post in posts %}
+				<li class="splide__slide">
+					<div class="splide__slide__container">
+						<img src="{{ post.thumbnail.url }}">
+					</div>
+					<div class="my-4">
+						<a class="link-secondary text-decoration-none" href="{{ url('big:post', kwargs={'slug': post.slug}) }}"><strong>{{ post.title }}</strong></a>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('big/css/splide.min.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ static('big/js/splide.min.js') }}"></script>
+<script type="text/javascript">
+new Splide('#pub-slider',{
+	pagination: false,
+}).mount();
+new Splide('#card-slider', {
+	pagination: false,
+	arrows: false,
+	autoplay: true,
+	interval: 3500,
+	type: 'loop',
+	//rewind: true,
+	perPage: 4,
+	cover: true,
+	height: '15rem',
+	gap: '3rem',
+	breakpoints: {
+		'800': {
+			perPage: 2,
+			height: '10rem',
+			gap: '2rem',
+		}
+	}
+}).mount();
+</script>
+{% endblock %}

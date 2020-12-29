@@ -1,0 +1,106 @@
+body{
+	/*background-color: #f8f8f8;*/
+}
+
+/* header */
+.menubar{
+	background-color: rgba(0, 0, 0, .85);
+}
+
+/* footer */
+#footer{
+	background-color: #333;
+	margin-top: 50px;
+	padding: 50px 0;
+	font-size: 14px;
+	color: rgba(255,255,255,.75);
+}
+.footer-links a{
+	color: rgba(255,255,255,.95);
+	font-size: 14px;
+	text-decoration: none;
+	margin-left: 15px;
+}
+.footer-links a:hover{
+	text-decoration: underline;
+}
+.footer-meta {
+	font-size: 12px;
+}
+.footer-meta a{
+	color:rgba(255,255,255,.75);
+	text-decoration: none;
+}
+
+#cdu-logo {
+	background-color: #fff;
+	border-radius: 50%;
+	padding: 1px;
+}
+
+/* change bootstrap */
+.btn-xs, .btn-group-xs > .btn {
+	padding: 0.125rem 0.25rem !important;
+	font-size: 0.375rem !important;
+}
+
+hr.divider {
+	margin: 5rem 0;
+}
+
+/* home page */
+.research-intresting .col {
+	text-align: center;
+}
+
+/* publication page */
+.paper-thumbnail {
+	max-width: 100px;
+	height: auto;
+}
+
+/* post page*/
+.post-title a{
+	color: #222;
+	text-decoration: none;
+}
+
+.post-title a:hover{
+	color: #198754;
+	text-decoration: underline;
+}
+
+.post-meta {
+	font-size: 14px;
+}
+
+/* member page */
+.graduate-students a{
+	color: #333;
+	text-decoration: none;
+}
+.graduate-students a:hover{
+	text-decoration: underline;
+}
+
+/* animation */
+.animate-hover{
+	overflow: hidden;
+}
+.animate-hover img{
+	transition: all .4s ease;
+}
+.animate-hover img:hover{
+	transform: scale(1.5);
+	transition: all .8s ease;
+}
+.animate-turn:hover{
+	animation: turn 1s linear infinite;
+}
+@keyframes turn{
+	0%{transform:rotate(0deg);}
+	25%{transform:rotate(90deg);}
+	50%{transform:rotate(180deg);}
+	75%{transform:rotate(270deg);}
+	100%{transform:rotate(360deg);}
+}

@@ -1,0 +1,147 @@
+{% set page_name = "big:profile" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("修改资料") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row mt-5">
+		<div class="col">
+			<form method="POST" enctype="multipart/form-data" class="row g-3">
+				{{ csrf_input }}
+				<div class="col-md-3">
+					<label for="username" class="form-label">{{ _("用户名") }}</label>
+					<input type="text" name="username" id="username" class="form-control" value="{{ user.username }}" disabled readonly>
+				</div>
+				<div class="col-md-1 text-right">
+					{% if user.member.avatar %}
+					<img src="{{ user.member.avatar.url }}" alt="avatar" width="64" height="64">
+					{% else %}
+					<img src="{{ static('big/image/avatar.png') }}" alt="avatar" width="64" height="64">
+					{% endif %}
+				</div>
+				<div class="col-md-8">
+					<label for="avatar" class="form-label">{{ _("选择图片更换头像") }}</label>
+					<input type="file" name="avatar" id="avatar" class="form-control">
+				</div>
+				
+				<div class="col-md-3">
+					<label for="name_zh" class="form-label">{{ _("中文名") }}</label>
+					<input type="text" name="name_zh" id="name_zh" class="form-control" value="{{ user.member.name_zh }}">
+				</div>
+				<div class="col-md-3">
+					<label for="name_en" class="form-label">{{ _("英文名") }}</label>
+					<input type="text" name="name_en" id="name_en" class="form-control" value="{{ user.member.name_en }}">
+				</div>
+				<div class="col-md-3">
+					<label for="title_zh" class="form-label">{{ _("中文头衔") }}</label>
+					<input type="text" name="title_zh" id="title_zh" class="form-control" value="{{ user.member.title_zh }}">
+				</div>
+				<div class="col-md-3">
+					<label for="title_en" class="form-label">{{ _("英文头衔") }}</label>
+					<input type="text" name="title_en" id="title_en" class="form-control" value="{{ user.member.title_en }}">
+				</div>
+				
+				<div class="col-md-3">
+					<label for="email" class="form-label">{{ _("邮箱") }}</label>
+					<input type="text" name="email" id="email" class="form-control" value="{{ user.email }}">
+				</div>
+				<div class="col-md-3">
+					<label for="phone" class="form-label">{{ _("电话") }}</label>
+					<input type="text" name="phone" id="phone" class="form-control" value="{{ user.member.phone }}">
+				</div>
+				<div class="col-md-3">
+					<label for="major_zh" class="form-label">{{ _("专业(中文)") }}</label>
+					<input type="text" name="major_zh" id="major_zh" class="form-control" value="{{ user.member.major_zh }}">
+				</div>
+				<div class="col-md-3">
+					<label for="major_en" class="form-label">{{ _("专业(英文)") }}</label>
+					<input type="text" name="major_en" id="major_en" class="form-control" value="{{ user.member.major_en }}">
+				</div>
+				<div class="col-md-3">
+					<label for="grade" class="form-label">{{ _("年级") }}</label>
+					<select id="grade" name="grade" class="form-select">
+						<option value="0">{{ _("未选择") }}</option>
+						{% for y in range(2020, now.year+1) %}
+						<option value="{{ y }}" {% if y == user.member.grade %} selected {% endif %}>{{ y }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label for="degree" class="form-label">{{ _("学位") }}</label>
+					<select id="degree" name="degree" class="form-select">
+						<option value="0">{{ _("未选择") }}</option>
+						{% set degrees = ((1, _("博士")), (2, _("硕士")), (3, _("学士"))) %}
+						{% for d in degrees %}
+						<option value="{{ d[0] }}" {% if d[0] == user.member.degree %} selected {% endif %}>{{ d[1] }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label for="position" class="form-label">{{ _("职位") }}</label>
+					<select id="position" name="position" class="form-select">
+						<option value="0">{{ _("未选择") }}</option>
+						{% set positions = ((1, _("研究生")), (2, _("本科生")), (3, _("博士后")), (4, _("教职工"))) %}
+						{% for p in positions %}
+						<option value="{{ p[0] }}" {% if p[0] == user.member.position %} selected {% endif %}>{{ p[1] }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-3">
+					<label for="status" class="form-label">{{ _("状态") }}</label>
+					<select id="status" name="status" class="form-select">
+						<option value="0">{{ _("未选择") }}</option>
+						{% set status = ((1, _("在读")), (2, _("毕业")), (3, _("退学"))) %}
+						{% for s in status %}
+						<option value="{{ s[0] }}" {% if s[0] == user.member.status %} selected {% endif %}>{{ s[1] }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				<div class="col-md-6">
+					<label for="direct_zh" class="form-label">{{ _("研究方向(中文)") }}</label>
+					<input type="text" name="direct_zh" id="direct_zh" class="form-control" value="{{ user.member.direct_zh }}">
+				</div>
+				<div class="col-md-6">
+					<label for="direct_en" class="form-label">{{ _("研究方向(英文)") }}</label>
+					<input type="text" name="direct_en" id="direct_en" class="form-control" value="{{ user.member.direct_en }}">
+				</div>
+				<div class="col-md-4">
+					<label for="github" class="form-label">Github</label>
+					<input type="text" name="github" id="github" class="form-control" value="{{ user.member.github }}">
+				</div>
+				<div class="col-md-4">
+					<label for="researchgate" class="form-label">Researchgate</label>
+					<input type="text" name="researchgate" id="researchgate" class="form-control" value="{{ user.member.researchgate }}">
+				</div>
+				<div class="col-md-4">
+					<label for="google" class="form-label">Google Scholar</label>
+					<input type="text" name="google" id="google" class="form-control" value="{{ user.member.google }}">
+				</div>
+				<div class="col-md-6">
+					<label for="bio_zh" class="form-label">{{ _("中文简历") }}</label>
+					<textarea name="bio_zh" id="bio_zh" class="form-control jodit-editor" rows="8">{{ user.member.bio_zh }}</textarea>
+				</div>
+				<div class="col-md-6">
+					<label for="bio_en" class="form-label">{{ _("英文简历") }}</label>
+					<textarea name="bio_en" id="bio_en" class="form-control jodit-editor" rows="8">{{ user.member.bio_en }}</textarea>
+				</div>
+				<div class="col-12">
+					<button type="submit" class="btn btn-success">{{ _("更新资料") }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('big/css/jodit.min.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ static('big/js/jodit.min.js') }}"></script>
+<script type="text/javascript">
+var editors = [].slice.call(document.querySelectorAll('.jodit-editor'));
+editors.forEach( e => {
+	var editor = new Jodit(e);
+});
+</script>
+{% endblock %}

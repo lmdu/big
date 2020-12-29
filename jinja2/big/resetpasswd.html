@@ -1,0 +1,55 @@
+{% extends "big/base.html" %}
+{% block title %}{{ _("修改密码") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+		{{ message }}
+		<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endfor %}
+	{% endif %}
+	<div class="row justify-content-center mt-5">
+		<div class="col-10 col-md-5 col-lg-4">
+			<h4 class="text-center mb-5">{{ _("修改密码") }}</h4>
+			<form method="POST" class="needs-validation" novalidate>
+				{{ csrf_input }}
+				<div>
+					<label for="oldpasswd" class="form-label">{{ _("原始密码") }}</label>
+					<input type="password" name="oldpasswd" class="form-control" id="oldpasswd" required>
+				</div>
+				<div class="mt-4">
+					<label for="newpasswd" class="form-label">{{ _("新密码") }}</label>
+					<input type="password" name="newpasswd" class="form-control" id="newpasswd" required>
+				</div>
+				<div class="mt-4">
+					<label for="okpasswd" class="form-label">{{ _("确认密码") }}</label>
+					<input type="password" name="okpasswd" class="form-control" id="okpasswd" required>
+				</div>
+				<div class="mt-4">
+					<button type="submit" class="btn btn-success">{{ _("修改密码") }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+(function(){
+'use strict';
+var forms = document.querySelectorAll('.needs-validation');
+Array.prototype.slice.call(forms).forEach(function(form){
+	form.addEventListener('submit', function(event){
+		if (!form.checkValidity()) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		form.classList.add('was-validated');
+	}, false);
+});
+})();
+</script>
+{% endblock %}

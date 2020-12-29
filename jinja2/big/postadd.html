@@ -1,0 +1,95 @@
+{% set page_name = "big:postadd" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("写文章") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-5" role="alert">
+		{{ message | safe }}
+		<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endfor %}
+	{% endif %}
+
+	<div class="row mt-5">
+		<div class="col">
+			<form method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+				{{ csrf_input }}
+				<div class="col-md-12">
+					<label for="title_zh" class="form-label">{{ _("中文标题") }}</label>
+					<input type="text" name="title_zh" id="title_zh" class="form-control" required>
+				</div>
+				<div class="col-md-12">
+					<label for="title_en" class="form-label">{{ _("英文标题") }}</label>
+					<input type="text" name="title_en" id="title_en" class="form-control">
+				</div>
+				<div class="col-md-6">
+					<label for="slug" class="form-label">{{ _("短名") }}</label>
+					<input type="text" name="slug" id="slug" class="form-control" aria-describedby="slug-help" required>
+					<div id="slug-help" class="form-text">{{ _("一个只能由数字、字母、连字符或下划线组成的字符串用于标识文章") }}</div>
+				</div>
+				<div class="col-md-6">
+					<label for="thumbnail" class="form-label">{{ _("缩略图") }}</label>
+					<input type="file" name="thumbnail" id="thumbnail" class="form-control">
+				</div>
+				<div class="col-md-12">
+					<label for="content_zh" class="form-label">{{ _("中文内容") }}</label>
+					<input type="text" name="content_zh" id="content_zh" class="form-control jodit-editor">
+				</div>
+				<div class="col-md-12">
+					<label for="content_en" class="form-label">{{ _("英文内容") }}</label>
+					<input type="text" name="content_en" id="content_en" class="form-control jodit-editor">
+				</div>
+				<div class="col-md-12">
+					 <button type="submit" class="btn btn-success">{{ _("写文章") }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('big/css/jodit.min.css') }}">
+{% endblock %}
+
+{% block script %}
+<script src="{{ static('big/js/jodit.min.js') }}"></script>
+<script type="text/javascript">
+
+var editors = [].slice.call(document.querySelectorAll('.jodit-editor'));
+editors.forEach( e => {
+	var editor = new Jodit(e, {
+		minHeight: 400,
+		uploader: {
+			url: '{{ url("upload") }}',
+			headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
+			filesVariableName: function(e){return 'files'},
+		},
+		filebrowser: {
+			showFoldersPanel: false,
+			removeButtons: [
+				"filebrowser.filter",
+				"filebrowser.sort",
+			],
+			ajax: {
+				url: '{{ url("browser") }}',
+				headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
+			}
+		}
+	});
+});
+
+var forms = document.querySelectorAll('.needs-validation');
+Array.prototype.slice.call(forms).forEach(function(form){
+	form.addEventListener('submit', function(event){
+		if (!form.checkValidity()) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		form.classList.add('was-validated');
+	}, false);
+});
+</script>
+{% endblock %}

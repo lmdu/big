@@ -1,0 +1,35 @@
+{% set page_name = "big:post" %}
+{% extends "big/base.html" %}
+{% block title %}{{ post.title }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h4 class="mt-5 row post-title">
+				<div class="col-12 col-md-9 text-success">
+					{{ post.title }}
+				</div>
+				<div class="col-12 mt-3 mt-md-0 col-md-3 text-muted text-md-right post-meta">
+					{% if lang %}
+					{{ time_format(post.created, 'Y-m-d') }}
+					{% else %}
+					{{ time_format(post.created, 'M j, Y') }}
+					{% endif %}
+				</div>
+			</h4>
+			{% if post.banner %}
+			<div class="mt-4 animate-hover text-center">
+				<img class="mb-3 img-fluid" src="{{ post.banner.url }}">
+			</div>
+			{% elif post.thumbnail %}
+			<div class="mt-4 animate-hover text-center">
+				<img class="mb-3 img-fluid" src="{{ post.thumbnail.url }}">
+			</div>
+			{% endif %}
+			<div class="mt-4 lh-lg">
+				{{ post.content | safe }}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

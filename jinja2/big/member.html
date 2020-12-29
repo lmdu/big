@@ -1,0 +1,76 @@
+{% set page_name = "big:member" %}
+{% extends "big/base.html" %}
+{% block title %}{{ profile.name }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row align-items-center mt-5">
+		<div class="col-md-6">
+			<div class="text-center text-md-right mr-md-5">
+				<div class="rounded-circle border border-5 d-inline-block animate-hover">
+					{% if profile.avatar %}
+					<img src="{{ profile.avatar.url }}" alt="avatar" class="rounded-circle img-fluid" style="max-width: 300px;">
+					{% else %}
+					<img src="{{ static('big/image/avatar.png') }}" alt="avatar" class="rounded-circle img-fluid" style="max-width: 300px;">
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="text-center text-md-left ml-md-5">
+				<p class="fs-4">{{ profile.name }}</p>
+				<!--<p>{{ member.email }}</p>-->
+				{% if profile.position == 4 %}
+				<p>{{ profile.title }}</p>
+				{% elif profile.position in [3, 5] %}
+				<p>{{ proflile.get_position_display() }}</p>
+				{% else %}
+				<p>
+					{% if lang %}
+					{{ profile.grade }}级 {{ profile.get_degree_display() }}{{ profile.get_position_display() }}
+					{% else %}
+					{{ profile.get_degree_display() }} student
+					{% endif %}
+				</p>
+				{% endif %}
+				<p>{{ _("专业") }}: {{ profile.major }}</p>
+				<p>{{ _("研究兴趣") }}: {{ profile.direct}}</p>
+				<p>
+					<a href="" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip"  title="{{ profile.user.email.replace('@', ' at ') }}">
+						<img src="{{ static('big/image/envelope.svg') }}" width="24">
+					</a>
+					{% if profile.github %}
+					<a href="{{ profile.github }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip" title="Github">
+						<img src="{{ static('big/image/github.svg') }}" width="24">
+					</a>
+					{% endif %}
+					{% if profile.researchgate %}
+					<a href="{{ profile.researchgate }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip" title="Researchgate">
+						<img src="{{ static('big/image/researchgate.svg') }}" width="24">
+					</a>
+					{% endif %}
+					{% if profile.google %}
+					<a href="{{ profile.google }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2" data-bs-toggle="tooltip" title="Google scholar">
+						<img src="{{ static('big/image/google.svg') }}" width="24">
+					</a>
+					{% endif %}
+				</p>
+			</div>
+		</div>
+	</div>
+	<hr class="border-bottom border-2 my-5">
+	<div class="row">
+		<div class="col">
+			{{ profile.bio | safe }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+});
+</script>
+{% endblock %}

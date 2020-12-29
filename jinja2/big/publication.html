@@ -1,0 +1,60 @@
+{% set page_name = "big:publication" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("研究成果") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			{% for research in researches %}
+			<div class="d-flex flex-wrap flex-md-nowrap papers mt-5">
+				<div class="pr-5">
+					<div class="animate-hover">
+						<img src="{{ research.thumbnail.url }}" class="paper-thumbnail">
+					</div>
+				</div>
+				<div class="flex-grow">
+					<p class="lh-lg">
+						{{ research.authors }}.
+						<strong>{{ research.title }}</strong>.
+						<i>{{ research.journal }}</i>,
+						{{ research.year }}{% if research.volume %}, {{ research.volume }}{% endif %}{% if research.issue %}({{ research.issue }}):{% endif %}{{ research.pages }}.
+					</p>
+					<p class="collapse" id="abstract-{{ research.id }}">{{ research.abstract }}</p>
+					<div class="mt-4">
+						<div class="btn-group btn-group-xs" role="group">
+							<button class="btn btn-primary">DOI</button>
+							<a class="btn btn-outline-primary" href="https://doi.org/{{ research.doi }}" target="_blank">{{ research.doi }}</a>
+						</div>
+						{% if research.pmid %}
+						<div class="btn-group btn-group-xs" role="group">
+							<button class="btn btn-success">PMID</button>
+							<a class="btn btn-outline-success" href="https://pubmed.ncbi.nlm.nih.gov/{{ research.pmid }}" target="_blank">{{ research.pmid }}</a>
+						</div>
+						{% endif %}
+						{% if research.factor %}
+						<div class="btn-group btn-group-xs" role="group">
+							<button class="btn btn-danger">IF</button>
+							<button class="btn btn-outline-danger">{{ research.factor }}</button>
+						</div>
+						{% endif %}
+						{% if research.pdf %}
+						<a class="btn btn-xs btn-outline-dark" href="{{ research.pdf.url }}" target="_blank">PDF</a>
+						{% endif %}
+						{% if research.abstract %}
+						<button class="btn btn-xs btn-outline-secondary" data-toggle="collapse" data-target="#abstract-{{ research.id }}">Abstract</button>
+						{% endif %}
+					</div>
+				</div>
+				<div class="pl-3">
+					<span class="__dimensions_badge_embed__" data-style="small_circle" data-doi="{{ research.doi }}">
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+{% endblock %}

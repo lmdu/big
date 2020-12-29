@@ -1,0 +1,22 @@
+{% set pange_name = "big:about" %}
+{% extends "big/base.html" %}
+{% block title %}{{ page.title }} - {% endblock %}
+{% block main %}
+<div class="container mt-5">
+	<div class="row">
+		<div class="col">
+			{% if page %}
+			<div class="text-center">
+				<h2 class="text-success">{{ page.title }}</h2>
+				<div class="mt-5">
+					<img src="{{ static('big/image/dnabar.png') }}" class="img-fluid" width="500">
+				</div>
+			</div>
+			<div class="mt-5 lh-lg">
+				{{ page.content | safe }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

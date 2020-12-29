@@ -1,0 +1,125 @@
+{% set lang = (request.LANGUAGE_CODE == "zh-hans") %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=divice-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="{{ static('big/css/bootstrap.min.css') }} ">
+	<link rel="stylesheet" href="{{ static('big/css/style.css') }}">
+	{% block head %}{% endblock %}
+	<title>{% block title %}{% endblock %}{{ _("生物信息学与整合基因组学课题组") }}</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark menubar">
+	<div class="container">
+		<a class="navbar-brand" href="{{ url('big:index') }}">
+			<img src="{{ static('big/image/logo.png') }}" width="60" height="60" class="animate-turn">
+			<span class="d-none d-md-inline-block">{{ _("生物信息学与整合基因组学课题组") }}</span>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		{% set menus = (('big:index', _("首页")), ('big:news', _("最新动态")), ('big:member', _("团队成员")), ('big:research', _("研究方向")), ('big:publication', _("研究成果")), ('big:software', _("软件资源"))) %}
+		<div class="collapse navbar-collapse" id="menu">
+			<ul class="navbar-nav ml-auto">
+				{% for menu in menus %}
+				<li class="nav-item active">
+					<a class="nav-link {% if page_name == menu[0] %} active {% endif %}" href="{{ url(menu[0]) }}">{{ menu[1] }}</a>
+				</li>
+				{% endfor %}
+			</ul>
+			{% if user.is_authenticated  %}
+			<ul class="navbar-nav ml-3">
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="profile-dropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+						{% if user.member.avatar %}
+						<img src="{{ user.member.avatar.url }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
+						{% else %}
+						<img src="{{ static('big/image/avatar.png') }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
+						{% endif %}
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" aria-labelledby="profile-dropdown">
+						{% if request.user.is_superuser %}
+						<li>
+							<a class="dropdown-item" href="{{ url('admin:index') }}">{{ _("控制面板") }}</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						{% endif %}
+						<li>
+							<a class="dropdown-item" href="{{ url('big:postadd') }}">{{ _("写文章") }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ url('big:postlist') }}">{{ _("我的文章") }}</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						<li>
+							<a class="dropdown-item" href="{{ url('big:member', kwargs={'uname': user.username}) }}">{{ _("个人主页") }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ url('big:profile') }}">{{ _("修改资料") }}</a>
+						</li>
+						<li>
+							<a class="dropdown-item" href="{{ url('big:resetpasswd') }}">{{ _("修改密码") }}</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
+						<li>
+							<a class="dropdown-item" href="{{ url('big:signout') }}">{{ _("退出登录") }}</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			{% endif %}
+		</div>
+	</div>
+</nav>
+
+{% block main %}
+{% endblock %}
+
+<footer id="footer">
+	<div class="container">
+		<div class="row g-5">
+			<div class="col-md-2 text-center text-md-left">
+				<img id="cdu-logo" src="{{  static('big/image/cdu.png') }}" class="img-fluid">
+			</div>
+			<div class="col-md-10 text-center text-md-right">
+				<div class="mb-3 footer-links">
+					<a href="{{ url('big:about') }}">{{ _("关于我们") }}</a>
+					<a href="{{ url('big:contact') }}">{{ _("联系我们") }}</a>
+					<a href="{{ url('big:join') }}">{{ _("加入我们") }}</a>
+					<a href="#" data-lang="zh-hans" class="change-lang-btn">简体中文</a>
+					<a href="#" data-lang="en-us" class="change-lang-btn">English</a>
+					<form action="{{ url('set_language') }}" method="POST" id="change-lang">
+						{{ csrf_input }}
+						<input type="hidden" name="next" value="{{ request.get_full_path() }}">
+						<input type="hidden" name="language" id="set-lang">
+					</form>
+				</div>
+				<p>&copy; {{ now.year }} Research Group for Bioinformatics and Integrative Genomics<br>
+				Institute Advanced Study, Chengdu University, Chengdu 610106, China</p>
+				<div class="footer-meta">
+					Powered by <a href="https://www.djangoproject.com/" target="_blank">Django</a>,
+					Rendered by <a href="https://github.com/pallets/jinja" target="_blank">Jinja2</a>,
+					Based on <a href="https://getbootstrap.com/" target="_blank">Bootstrap</a>,
+					Photos from <a href="https://www.freepik.com/" target="_blank">freepik</a> and <a href="https://pixabay.com/" target="_blank">pixabay</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+<script src="{{ static('big/js/bootstrap.bundle.min.js') }}"></script>
+<script type="text/javascript">
+var btns = document.querySelectorAll(".change-lang-btn");
+for (var i = 0; i < btns.length; i++) {
+	btns[i].addEventListener('click', function(event){
+		event.preventDefault();
+		document.querySelector('#set-lang').value = this.dataset.lang;
+		document.querySelector('#change-lang').submit();
+	});
+}
+</script>
+{% block script %}{% endblock %}
+
+</body>
+</html>

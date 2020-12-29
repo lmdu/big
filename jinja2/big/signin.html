@@ -1,0 +1,51 @@
+{% extends "big/base.html" %}
+{% block title %}{{ _("登录") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+		{{ message }}
+		<button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+	</div>
+	{% endfor %}
+	{% endif %}
+	<div class="row justify-content-center mt-5">
+		<div class="col-10 col-md-5 col-lg-4">
+			<h4 class="text-center mb-5">{{ _("登录") }}</h4>
+			<form method="POST" class="needs-validation" novalidate>
+				{{ csrf_input }}
+				<div>
+					<label for="username" class="form-label">{{ _("用户名") }}</label>
+					<input type="text" name="username" class="form-control" id="username" required>
+				</div>
+				<div class="mt-4">
+					<label for="password" class="form-label">{{ _("密码") }}</label>
+					<input type="password" name="password" class="form-control" id="password" required>
+				</div>
+				<div class="mt-4">
+					<button type="submit" class="btn btn-success">{{ _("登录") }}</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+(function(){
+'use strict';
+var forms = document.querySelectorAll('.needs-validation');
+Array.prototype.slice.call(forms).forEach(function(form){
+	form.addEventListener('submit', function(event){
+		if (!form.checkValidity()) {
+			event.preventDefault();
+			event.stopPropagation();
+		}
+		form.classList.add('was-validated');
+	}, false);
+});
+})();
+</script>
+{% endblock %}
