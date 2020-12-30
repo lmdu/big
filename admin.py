@@ -19,9 +19,8 @@ class ResearchAdmin(admin.ModelAdmin):
 
 @admin.register(Member)
 class MemberAdmin(admin.ModelAdmin):
-	list_display = ('id', 'user', 'major_zh', 'grade', 'degree', 'position', 'status')
+	list_display = ('id', 'uname', 'email', 'major_zh', 'grade', 'degree', 'position', 'status')
 	list_filter = ('degree',)
-	search_fields = ('user.username',)
 
 @admin.register(Slideshow)
 class SlideAdmin(admin.ModelAdmin):

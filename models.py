@@ -75,7 +75,9 @@ class Member(BaseModel):
 
 	YEARS = ((i, i) for i in range(2020, timezone.now().year+1))
 
-	user = models.OneToOneField(User, on_delete=models.CASCADE, db_constraint=False)
+	#user = models.OneToOneField(User, on_delete=models.CASCADE, db_constraint=False)
+	uname = models.CharField(max_length=150)
+	email = models.CharField(max_length=255, blank=True)
 	name_zh = models.CharField(max_length=30, blank=True)
 	name_en = models.CharField(max_length=30, blank=True)
 	title_zh = models.CharField(max_length=255, blank=True)
@@ -118,7 +120,7 @@ class Post(BaseModel):
 	thumbnail = models.ImageField(upload_to='big/thumbnail/', blank=True)
 	banner = models.ImageField(upload_to='big/banner/', blank=True)
 	approve = models.SmallIntegerField(choices=APPROVES, default=0)
-	author = models.ForeignKey(Member, on_delete=models.CASCADE, db_constraint=False)
+	author = models.ForeignKey(Member, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
 	updated = models.DateTimeField(auto_now=True)
 

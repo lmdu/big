@@ -63,12 +63,11 @@ def member(request, uname=None):
 		})
 	else:
 		try:
-			member = User.objects.get(username=uname)
+			member = Member.objects.get(uname=uname)
 		except:
 			return HttpResponseNotFound("{} does not exists in our research group".format(uname))
 
-		profile = Member.objects.get(user=member)
-		return render(request, 'big/member.html', {'member':member, 'profile': profile})
+		return render(request, 'big/member.html', {'member':member})
 
 def research(request):
 	researches = Research.objects.all()
@@ -106,6 +105,7 @@ def signin(request):
 		user = authenticate(request, username=username, password=password)
 
 		if user is not None:
+			user.member = Member.objects.get(uname=username)
 			login(request, user)
 			return redirect('big:profile')
 
@@ -137,13 +137,15 @@ def signup(request):
 			messages.add_message(request, messages.WARNING, _("密码的长度至少为8位数字或字母"))
 		
 		else:
-			user = User.objects.create_user(
+			User.objects.create_user(
 				username = username,
 				password = password,
 				email = email,
 			)
-			user.member.name = name
-			user.member.save()
+			Member.objects.create_user(
+				uname = username,
+				email = email,
+			)
 
 			messages.add_message(request, messages.SUCCESS,
 			 _('注册成功, 请 <a href="{}">登录</a> 系统, 修改个人资料'.format(reverse('big:signin'))))
@@ -158,16 +160,12 @@ def profile(request):
 	elif request.method == 'POST':
 		data = request.POST
 		avatar = request.FILES.get('avatar', None)
-
-		user = User.objects.get(pk=request.user.id)
-		user.email = data['email']
-		user.save()
-
-		member = Member.objects.get(user=user)
+		member = Member.objects.get(uname=request.user.username)
 		
 		if avatar:
 			member.avatar = avatar
 		
+		member.email = data['email']
 		member.name_zh = data['name_zh']
 		member.name_en = data['name_en']
 		member.title_zh = data['title_zh']
@@ -224,11 +222,12 @@ def postadd(request):
 
 	elif request.method == 'POST':
 		data = request.POST
-		
 
 		if Post.objects.filter(slug=data['slug']).exists():
 			messages.add_message(request, messages.WARNING, _("别名已被占用, 请重新输入"))
 			return redirect('big:postadd')
+
+		author = Member.objects.get(uname=request.user.username)
 
 		post = Post.objects.create(
 			slug = data['slug'],
@@ -236,7 +235,7 @@ def postadd(request):
 			title_en = data['title_en'],
 			content_zh = data['content_zh'],
 			content_en = data['content_en'],
-			author = request.user.member,
+			author = author,
 		)
 
 		img = request.FILES.get('thumbnail', None)
@@ -264,11 +263,9 @@ def postedit(request, slug):
 
 	elif request.method == 'POST':
 		data = request.POST
-
 		post = Post.objects.get(slug=slug)
 		
 		if slug != data['slug']:
-
 			if Post.objects.filter(slug=data['slug']).exists():
 				messages.add_message(request, messages.WARNING, _("别名已被占用, 请重新输入"))
 				return redirect(reverse('big:postedit', kwargs={'slug':slug}))
@@ -293,6 +290,7 @@ def postdelete(request, slug):
 		Post.objects.get(slug=slug).delete()
 		return redirect('big:postlist')
 
+@login_required
 def upload(request):
 	if request.method == 'POST':
 		files = request.FILES.getlist('files')
@@ -323,6 +321,7 @@ def upload(request):
 			}
 		})
 
+@login_required
 def browser(request):
 	if request.method == 'POST':
 		medias = []
