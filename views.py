@@ -107,15 +107,15 @@ def signin(request):
 
 		if user is not None:
 			login(request, user)
-			return redirect('profile')
+			return redirect('big:profile')
 
 		else:
 			messages.add_message(request, messages.ERROR, _("用户名或密码错误, 忘记帐号密码请联系管理员"))
-			return redirect('signin')
+			return redirect('big:signin')
 
 def signout(request):
 	logout(request)
-	return redirect('index')
+	return redirect('big:index')
 
 def signup(request):
 	if request.method == 'GET':
@@ -146,9 +146,9 @@ def signup(request):
 			user.member.save()
 
 			messages.add_message(request, messages.SUCCESS,
-			 _('注册成功, 请 <a href="{}">登录</a> 系统, 修改个人资料'.format(reverse('signin'))))
+			 _('注册成功, 请 <a href="{}">登录</a> 系统, 修改个人资料'.format(reverse('big:signin'))))
 
-		return redirect('signup')
+		return redirect('big:signup')
 
 @login_required(login_url='/signin')
 def profile(request):
@@ -188,7 +188,7 @@ def profile(request):
 		member.google = data['google']
 		member.save()
 
-		return redirect('profile')
+		return redirect('big:profile')
 
 @login_required(login_url='/signin')
 def resetpasswd(request):
@@ -213,9 +213,9 @@ def resetpasswd(request):
 			user = User.objects.get(pk=request.user.id)
 			user.set_password(newpasswd)
 			user.save()
-			return redirect('signin')
+			return redirect('big:signin')
 
-		return redirect('resetpasswd')
+		return redirect('big:resetpasswd')
 
 @login_required(login_url='/signin')
 def postadd(request):
@@ -228,7 +228,7 @@ def postadd(request):
 
 		if Post.objects.filter(slug=data['slug']).exists():
 			messages.add_message(request, messages.WARNING, _("别名已被占用, 请重新输入"))
-			return redirect('postadd')
+			return redirect('big:postadd')
 
 		post = Post.objects.create(
 			slug = data['slug'],
@@ -244,7 +244,7 @@ def postadd(request):
 			post.thumbnail = img
 			post.save()
 
-		return redirect('postlist')
+		return redirect('big:postlist')
 
 @login_required(login_url='/signin')
 def postlist(request):
@@ -271,7 +271,7 @@ def postedit(request, slug):
 
 			if Post.objects.filter(slug=data['slug']).exists():
 				messages.add_message(request, messages.WARNING, _("别名已被占用, 请重新输入"))
-				return redirect(reverse('postedit', kwargs={'slug':slug}))
+				return redirect(reverse('big:postedit', kwargs={'slug':slug}))
 		
 		post.slug = data['slug']
 		post.title_zh = data['title_zh']
@@ -285,13 +285,13 @@ def postedit(request, slug):
 			post.thumbnail = img
 		post.save()
 
-		return redirect('postlist')
+		return redirect('big:postlist')
 
 @login_required(login_url='/signin')
 def postdelete(request, slug):
 	if request.method == 'GET':
 		Post.objects.get(slug=slug).delete()
-		return redirect('postlist')
+		return redirect('big:postlist')
 
 def upload(request):
 	if request.method == 'POST':
