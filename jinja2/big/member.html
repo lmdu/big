@@ -35,9 +35,11 @@
 				<p>{{ _("专业") }}: {{ member.major }}</p>
 				<p>{{ _("研究兴趣") }}: {{ member.direct}}</p>
 				<p>
+					{% if member.email %}
 					<a href="" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip"  title="{{ member.email.replace('@', ' at ') }}">
 						<img src="{{ static('big/image/envelope.svg') }}" width="24">
 					</a>
+					{% endif %}
 					{% if member.github %}
 					<a href="{{ member.github }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip" title="Github">
 						<img src="{{ static('big/image/github.svg') }}" width="24">

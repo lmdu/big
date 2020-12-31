@@ -11,7 +11,7 @@
 	<div class="row g-5 align-items-center">
 		<div class="col-12 col-md-4 col-lg-3 text-center">
 			<p>
-				<a href="{{ url('big:member', kwargs={'uname': faculty.user.username}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
+				<a href="{{ url('big:member', kwargs={'uname': faculty.uname}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
 					{% if faculty.avatar %}
 					<img src="{{ faculty.avatar.url }}" alt="avatar" class="rounded-circle img-fluid">
 					{% else %}
@@ -37,7 +37,7 @@
 		{% for pg in postgraduates %}
 		<div class="col text-center">
 			<p>
-				<a href="{{ url('big:member', kwargs={'uname': pg.user.username}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
+				<a href="{{ url('big:member', kwargs={'uname': pg.uname}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
 					{% if pg.avatar %}
 					<img src="{{ pg.avatar.url }}" alt="avatar" class="rounded-circle img-fluid">
 					{% else %}
@@ -59,7 +59,7 @@
 		{% for ug in undergraduates %}
 		<div class="col text-center">
 			<p>
-				<a href="{{ url('big:member', kwargs={'uname': ug.user.username}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
+				<a href="{{ url('big:member', kwargs={'uname': ug.uname}) }}" class="animate-hover rounded-circle border border-5 d-inline-block">
 					{% if ug.avatar %}
 					<img src="{{ ug.avatar.url }}" alt="avatar"  class="rounded-circle img-fluid">
 					{% else %}
@@ -89,7 +89,7 @@
 						<img src="{{ static('big/image/avatar.png') }}" alt="avatar" width="24" height="24" class="rounded-circle img-fluid">
 						{% endif %}
 					</span>
-					<a href="{{ url('big:member', kwargs={'uname': g.user.username}) }}">
+					<a href="{{ url('big:member', kwargs={'uname': g.uname}) }}">
 						{{ g.name }}
 					</a>
 				</li>

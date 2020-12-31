@@ -63,7 +63,7 @@ editors.forEach( e => {
 	var editor = new Jodit(e, {
 		minHeight: 400,
 		uploader: {
-			url: '{{ url("upload") }}',
+			url: '{{ url("big:upload") }}',
 			headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
 			filesVariableName: function(e){return 'files'},
 		},
@@ -74,7 +74,7 @@ editors.forEach( e => {
 				"filebrowser.sort",
 			],
 			ajax: {
-				url: '{{ url("browser") }}',
+				url: '{{ url("big:browser") }}',
 				headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
 			}
 		}

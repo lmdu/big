@@ -61,6 +61,22 @@ var editors = [].slice.call(document.querySelectorAll('.jodit-editor'));
 editors.forEach( e => {
 	var editor = new Jodit(e, {
 		minHeight: 400,
+		uploader: {
+			url: '{{ url("big:upload") }}',
+			headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
+			filesVariableName: function(e){return 'files'},
+		},
+		filebrowser: {
+			showFoldersPanel: false,
+			removeButtons: [
+				"filebrowser.filter",
+				"filebrowser.sort",
+			],
+			ajax: {
+				url: '{{ url("big:browser") }}',
+				headers: {'X-CSRFToken': "{{ csrf_input.split('\"')[-2] }}"},
+			}
+		}
 	});
 });
 

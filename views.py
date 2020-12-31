@@ -105,8 +105,14 @@ def signin(request):
 		user = authenticate(request, username=username, password=password)
 
 		if user is not None:
-			user.member = Member.objects.get(uname=username)
 			login(request, user)
+			member = Member.objects.get(uname=username)
+			if member.avatar:
+				request.session['avatar'] = member.avatar.url
+			else:
+				request.session['avatar'] = None
+			request.session['userid'] = member.id
+
 			return redirect('big:profile')
 
 		else:
@@ -155,12 +161,13 @@ def signup(request):
 @login_required(login_url='/signin')
 def profile(request):
 	if request.method == 'GET':
-		return render(request, 'big/profile.html')
+		member = Member.objects.get(pk=request.session['userid'])
+		return render(request, 'big/profile.html', {'member': member})
 
 	elif request.method == 'POST':
 		data = request.POST
 		avatar = request.FILES.get('avatar', None)
-		member = Member.objects.get(uname=request.user.username)
+		member = Member.objects.get(pk=request.session['userid'])
 		
 		if avatar:
 			member.avatar = avatar
@@ -227,7 +234,7 @@ def postadd(request):
 			messages.add_message(request, messages.WARNING, _("别名已被占用, 请重新输入"))
 			return redirect('big:postadd')
 
-		author = Member.objects.get(uname=request.user.username)
+		author = Member.objects.get(pk=request.session['userid'])
 
 		post = Post.objects.create(
 			slug = data['slug'],
@@ -248,7 +255,8 @@ def postadd(request):
 @login_required(login_url='/signin')
 def postlist(request):
 	if request.method == 'GET':
-		post_list = Post.objects.filter(author=request.user.member)
+		#member = Member.objects.get(uname=request.user.username)
+		post_list = Post.objects.filter(author__pk=request.session['userid'])
 		paginator = Paginator(post_list, 15)
 		page = request.GET.get('page')
 		posts = paginator.get_page(page)

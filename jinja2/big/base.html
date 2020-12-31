@@ -32,8 +32,8 @@
 			<ul class="navbar-nav ml-3">
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="profile-dropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-						{% if user.member.avatar %}
-						<img src="{{ user.member.avatar.url }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
+						{% if request.session.avatar %}
+						<img src="{{ request.session.avatar }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
 						{% else %}
 						<img src="{{ static('big/image/avatar.png') }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
 						{% endif %}

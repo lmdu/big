@@ -197,15 +197,6 @@ class Option(BaseModel):
 	thumbnail = models.ImageField(upload_to='big/thumbnail', blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 
-@receiver(post_save, sender=User)
-def create_user_member(sender, instance, created, **kwargs):
-	if created:
-		Member.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_member(sender, instance, **kwargs):
-	instance.member.save()
-
 @receiver(pre_delete, sender=Slideshow)
 def delete_slide(sender, instance, **kwargs):
 	instance.image.delete(True)
