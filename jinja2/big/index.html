@@ -117,17 +117,7 @@
 								{{ pub.title }}.
 								<strong>{{ pub.journal }}</strong>,
 								{{ pub.year }},
-								{% if pub.volume %}
-								{{ pub.volume }}
-								{% else %}
-								{{ pub.doi }}.
-								{% endif %}
-								{% if pub.issue %}
-								({{ pub.issue }}):
-								{% endif %}
-								{% if pub.pages %}
-								{{ pub.pages }}.
-								{% endif %}
+								{% if pub.volume %}{{ pub.volume }}{% else %}{{ pub.doi }}.{% endif %}{% if pub.issue %}({{ pub.issue }}){% endif %}{% if pub.pages %}:{{ pub.pages }}.{% endif %}
 							</p>
 						</div>
 					</li>

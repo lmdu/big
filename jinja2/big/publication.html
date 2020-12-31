@@ -17,7 +17,7 @@
 						{{ research.authors }}.
 						<strong>{{ research.title }}</strong>.
 						<i>{{ research.journal }}</i>,
-						{{ research.year }}{% if research.volume %}, {{ research.volume }}{% endif %}{% if research.issue %}({{ research.issue }}):{% endif %}{{ research.pages }}.
+						{{ research.year }}{% if research.volume %}, {{ research.volume }}{% endif %}{% if research.issue %}({{ research.issue }}){% endif %}{% if research.pages %}:{{ research.pages }}{% endif %}.
 					</p>
 					<p class="collapse" id="abstract-{{ research.id }}">{{ research.abstract }}</p>
 					<div class="mt-4">
