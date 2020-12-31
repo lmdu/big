@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.dispatch.dispatcher import receiver
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -100,10 +100,10 @@ class Member(BaseModel):
 	check = models.SmallIntegerField(choices=CHECKS, blank=True, default=0)
 
 	def __str__(self):
-		return self.user.username
+		return self.uname
 
 	class Meta:
-		ordering = ['grade']
+		ordering = ['degree', 'grade']
 
 class Post(BaseModel):
 	APPROVES = (
