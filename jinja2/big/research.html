@@ -11,7 +11,7 @@
 			</div>
 		</div>
 		<div class="col-6 col-md-8 col-lg-10">
-			<div class="pl-5 lh-lg">{{ research.direction | safe }}</div>
+			<div class="{{ loop.cycle('pl-5', 'pr-5') }} lh-lg">{{ research.direction | safe }}</div>
 		</div>
 	</div>
 	{% endfor %}

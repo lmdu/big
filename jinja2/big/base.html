@@ -87,8 +87,8 @@
 					<a href="{{ url('big:about') }}">{{ _("关于我们") }}</a>
 					<a href="{{ url('big:contact') }}">{{ _("联系我们") }}</a>
 					<a href="{{ url('big:join') }}">{{ _("加入我们") }}</a>
-					<a href="#" data-lang="zh-hans" class="change-lang-btn">简体中文</a>
-					<a href="#" data-lang="en-us" class="change-lang-btn">English</a>
+					<a href="#" data-lang="zh-hans" class="change-lang-btn">{{ _("中文") }}</a>
+					<a href="#" data-lang="en-us" class="change-lang-btn">{{ _("英文") }}</a>
 					<form action="{{ url('set_language') }}" method="POST" id="change-lang">
 						{{ csrf_input }}
 						<input type="hidden" name="next" value="{{ request.get_full_path() }}">
