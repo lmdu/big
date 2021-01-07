@@ -7,12 +7,12 @@
 		<div class="col">
 			{% for research in researches %}
 			<div class="d-flex flex-wrap flex-md-nowrap papers mt-5">
-				<div class="pr-5">
-					<div class="animate-hover">
+				<div class="pr-5 order-1">
+					<div class="animate-hover text-center text-md-left">
 						<img src="{{ research.thumbnail.url }}" class="paper-thumbnail">
 					</div>
 				</div>
-				<div class="flex-grow">
+				<div class="flex-md-grow order-3 order-md-2">
 					<p class="lh-lg">
 						{{ research.authors }}.
 						<strong>{{ research.title }}</strong>.
@@ -45,7 +45,7 @@
 						{% endif %}
 					</div>
 				</div>
-				<div class="pl-3">
+				<div class="pl-3 order-2 order-md-3">
 					<span class="__dimensions_badge_embed__" data-style="small_circle" data-doi="{{ research.doi }}">
 				</div>
 			</div>

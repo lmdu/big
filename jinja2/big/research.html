@@ -5,13 +5,13 @@
 <div class="container">
 	{% for research in researches %}
 	<div class="row align-items-center mt-5">
-		<div class="col-6 col-md-4 col-lg-2 {{ loop.cycle('order-first', 'order-last') }}">
+		<div class="col-md-4 col-lg-2 {{ loop.cycle('order-md-first', 'order-md-last') }}">
 			<div class="border border-5 rounded-circle animate-hover">
 				<img src="{{ research.thumbnail.url }}" class="rounded-circle img-fluid">
 			</div>
 		</div>
-		<div class="col-6 col-md-8 col-lg-10">
-			<div class="{{ loop.cycle('pl-5', 'pr-5') }} lh-lg">{{ research.direction | safe }}</div>
+		<div class="col-md-8 col-lg-10">
+			<div class="{{ loop.cycle('pl-md-5', 'pr-md-5') }} lh-lg">{{ research.direction | safe }}</div>
 		</div>
 	</div>
 	{% endfor %}
