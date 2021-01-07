@@ -5,9 +5,9 @@
 <div class="container">
 	{% for research in researches %}
 	<div class="row align-items-center mt-5">
-		<div class="col-md-4 col-lg-2 {{ loop.cycle('order-md-first', 'order-md-last') }}">
-			<div class="border border-5 rounded-circle animate-hover">
-				<img src="{{ research.thumbnail.url }}" class="rounded-circle img-fluid">
+		<div class="col-md-4 col-lg-2 {{ loop.cycle('order-md-first', 'order-md-last') }} text-center">
+			<div class="border border-5 rounded-circle animate-hover d-inline-block">
+				<img src="{{ research.thumbnail.url }}" class="rounded-circle img-fluid" width="250">
 			</div>
 		</div>
 		<div class="col-md-8 col-lg-10">
