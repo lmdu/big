@@ -14,7 +14,7 @@ from .models import *
 def index(request):
 	slides = Slideshow.objects.all()[0:5]
 	pubs = Publication.objects.all()[0:5]
-	posts = Post.objects.all()[0:8]
+	posts = Post.objects.filter(approve=1)[0:8]
 	introduce = Option.objects.filter(name='introduce').first()
 	interest = Option.objects.filter(name='interest').first()
 	supports = Option.objects.filter(name='supports')
