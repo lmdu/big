@@ -13,7 +13,7 @@
 							{{ s.get_category_display() }}
 						</span>
 						{{ s.name }}
-						<small class="float-right">
+						<small class="float-end">
 							{% if s.category == 1 %}
 							<a href="{{ s.url }}" target="_blank">
 								<img src="{{ static('big/image/github.svg') }}">
@@ -33,7 +33,7 @@
 							</div>
 							{% endif %}
 						</div>
-						<div class="col-md-8 pl-md-5 lh-lg">
+						<div class="col-md-8 ps-md-5 lh-lg">
 							{{ s.description }}
 						</div>
 					</div>

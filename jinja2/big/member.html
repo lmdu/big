@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row align-items-center mt-5">
 		<div class="col-md-6">
-			<div class="text-center text-md-right mr-md-5">
+			<div class="text-center text-md-right me-md-5">
 				<div class="rounded-circle border border-5 d-inline-block animate-hover">
 					{% if member.avatar %}
 					<img src="{{ member.avatar.url }}" alt="avatar" class="rounded-circle img-fluid" style="max-width: 300px;">
@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<div class="text-center text-md-left ml-md-5">
+			<div class="text-center text-md-left ms-md-5">
 				<p class="fs-4">{{ member.name }}</p>
 				<!--<p>{{ member.email }}</p>-->
 				{% if member.position == 4 %}
@@ -36,7 +36,7 @@
 				<p>{{ _("研究兴趣") }}: {{ member.direct}}</p>
 				<p>
 					{% if member.email %}
-					<a href="" class="d-inline-block border border-2 rounded-circle p-2 mr-2" data-bs-toggle="tooltip"  title="{{ member.email.replace('@', ' at ') }}">
+					<a href="" class="d-inline-block border border-2 rounded-circle p-2 me-2" data-bs-toggle="tooltip"  title="{{ member.email.replace('@', ' at ') }}">
 						<img src="{{ static('big/image/envelope.svg') }}" width="24">
 					</a>
 					{% endif %}
