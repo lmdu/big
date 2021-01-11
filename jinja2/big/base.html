@@ -1,9 +1,9 @@
 {% set lang = (request.LANGUAGE_CODE == "zh-hans") %}
 <!DOCTYPE html>
-<html>
+<html lang="{{ request.LANGUAGE_CODE }}">
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=divice-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=divice-width, initial-scale=1">
 	<link rel="stylesheet" href="{{ static('big/css/bootstrap.min.css') }} ">
 	<link rel="stylesheet" href="{{ static('big/css/style.css') }}">
 	{% block head %}{% endblock %}
@@ -79,7 +79,7 @@
 {% endblock %}
 
 <footer id="footer">
-	<div class="container">
+	<div class="container overflow-hidden">
 		<div class="row g-5">
 			<div class="col-md-2 text-center text-md-left">
 				<img id="cdu-logo" src="{{  static('big/image/cdu.png') }}" class="img-fluid">

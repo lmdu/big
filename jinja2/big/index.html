@@ -1,7 +1,7 @@
 {% set page_name = "big:index" %}
 {% extends "big/base.html" %}
 {% block main %}
-<div id="slideshow" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500">
+<div id="slideshow" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="2500">
 	<ol class="carousel-indicators">
 		<li data-target="#slideshow" data-slide-to="0" class="active"></li>
 		<li data-target="#slideshow" data-slide-to="1"></li>
@@ -33,17 +33,17 @@
 		</div>
 		{% endfor %}
 	</div>
-	<a class="carousel-control-prev" href="#slideshow" role="button" data-slide="prev">
+	<a class="carousel-control-prev" href="#slideshow" role="button" data-bs-slide="prev">
 		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Previous</span>
 	</a>
-	<a class="carousel-control-next" href="#slideshow" role="button" data-slide="next">
+	<a class="carousel-control-next" href="#slideshow" role="button" data-bs-slide="next">
 		<span class="carousel-control-next-icon" aria-hidden="true"></span>
 		<span class="visually-hidden">Next</span>
 	</a>
 </div>
 {% if introduce %}
-<div class="container my-5">
+<div class="container my-5 overflow-hidden">
 	<div class="row py-5 mt-md-2 g-5 align-items-center">
 		<div class="col-lg-7 pr-5">
 			<h3 class="text-success">{{ introduce.title }}</h3>
@@ -64,7 +64,7 @@
 {% endif %}
 {% if interest %}
 <div class="bg-light my-5 py-5">
-	<div class="container py-5">
+	<div class="container py-5 overflow-hidden">
 		<div class="row g-5 align-items-center">
 			<div class="col-lg-5">
 				<div class="animate-hover">
@@ -86,7 +86,7 @@
 	</div>
 </div>
 {% endif %}
-<div class="container py-5">
+<div class="container py-5 overflow-hidden">
 	<h3 class="text-success text-center">{{ _("组学技术") }}</h3>
 	<p class="text-center mt-3">{{ _("课题组使用二代和三代测序技术结合多组学分析技术解密基因组信息") }}</p>
 	<div class="row g-5 row-cols-1 row-cols-md-2 row-cols-lg-4 mt-5 research-intresting">
