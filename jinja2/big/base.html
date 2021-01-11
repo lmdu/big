@@ -16,22 +16,24 @@
 			<img src="{{ static('big/image/logo.png') }}" width="60" height="60" class="animate-turn">
 			<span class="d-none d-md-inline-block">{{ _("生物信息学与整合基因组学课题组") }}</span>
 		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse"data-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		{% set menus = (('big:index', _("首页")), ('big:news', _("最新动态")), ('big:member', _("团队成员")), ('big:research', _("研究方向")), ('big:publication', _("研究成果")), ('big:software', _("软件资源"))) %}
 		<div class="collapse navbar-collapse" id="menu">
-			<ul class="navbar-nav ml-auto">
+			<ul class="navbar-nav flex-row flex-wrap pt-2 py-md-0">
 				{% for menu in menus %}
-				<li class="nav-item active">
+				<li class="nav-item col-6 col-md-auto active">
 					<a class="nav-link {% if page_name == menu[0] %} active {% endif %}" href="{{ url(menu[0]) }}">{{ menu[1] }}</a>
 				</li>
 				{% endfor %}
 			</ul>
 			{% if user.is_authenticated %}
+			<hr class="d-md-none text-white-50">
+
 			<ul class="navbar-nav ml-3">
 				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="profile-dropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+					<a class="nav-link dropdown-toggle" href="#" id="profile-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 						{% if request.session.avatar %}
 						<img src="{{ request.session.avatar }}" class="align-middle rounded-circle border border-white border-2" width="36" height="36">
 						{% else %}
