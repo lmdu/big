@@ -11,14 +11,7 @@
 	</ol>
 	<div class="carousel-inner">
 		{% for slide in slides %}
-		<div class="carousel-item {% if loop.first %}active{% endif %}">
-			{% if slide.link %}
-			<a href="{{ slide.link }}">
-				<img src="{{ slide.image.url }}" class="d-block w-100">
-			</a>
-			{% else %}
-			<img src="{{ slide.image.url }}" class="d-block w-100">
-			{% endif %}
+		<a {% if slide.link %}href="{{ slide.link }}"{% endif %} class="carousel-item {% if loop.first %}active{% endif %}" style="background-image:url('{{ slide.image.url }}');">
 			{% if slide.title %}
 			<div class="carousel-caption">
 				<h4>{{ slide.title }}</h4>
@@ -30,7 +23,7 @@
 				{{ slide.extra }}
 			</div>
 			{% endif %}
-		</div>
+		</a>
 		{% endfor %}
 	</div>
 	<a class="carousel-control-prev" href="#slideshow" role="button" data-bs-slide="prev">
@@ -152,6 +145,20 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ static('big/css/splide.min.css') }}">
+<style type="text/css">
+#slideshow .carousel-inner .carousel-item{
+	display: block;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 550px;
+}
+@media (max-width: 767px) {
+	#slideshow .carousel-inner .carousel-item{
+		height: 300px;
+	}
+}
+</style>
 {% endblock %}
 
 {% block script %}
