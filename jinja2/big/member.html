@@ -36,23 +36,23 @@
 				<p>{{ _("研究兴趣") }}: {{ member.direct}}</p>
 				<p>
 					{% if member.email %}
-					<a href="" class="d-inline-block border border-2 rounded-circle p-2 me-2" data-bs-toggle="tooltip"  title="{{ member.email.replace('@', ' at ') }}" data-bs-placement="bottom">
-						<img src="{{ static('big/image/envelope.svg') }}" width="24">
+					<a href="#" data-bs-toggle="tooltip" title="{{ member.email.replace('@', ' at ') }}" data-bs-placement="bottom">
+						<img src="{{ static('big/image/envelope.svg') }}" class="border border-2 rounded-circle p-1 me-2" width="36">
 					</a>
 					{% endif %}
 					{% if member.github %}
-					<a href="{{ member.github }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2 me-2" data-bs-toggle="tooltip" title="Github" data-bs-placement="bottom">
-						<img src="{{ static('big/image/github.svg') }}" width="24">
+					<a href="{{ member.github }}" data-bs-toggle="tooltip" title="Github" data-bs-placement="bottom">
+						<img src="{{ static('big/image/github.svg') }}" class="border border-2 rounded-circle p-1 me-2" width="36">
 					</a>
 					{% endif %}
 					{% if member.researchgate %}
-					<a href="{{ member.researchgate }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2 me-2" data-bs-toggle="tooltip" title="Researchgate" data-bs-placement="bottom">
-						<img src="{{ static('big/image/researchgate.svg') }}" width="24">
+					<a href="{{ member.researchgate }}" data-bs-toggle="tooltip" title="Researchgate" data-bs-placement="bottom">
+						<img src="{{ static('big/image/researchgate.svg') }}" class="border border-2 rounded-circle p-1 me-2"  width="36">
 					</a>
 					{% endif %}
 					{% if member.google %}
-					<a href="{{ member.google }}" target="_blank" class="d-inline-block border border-2 rounded-circle p-2" data-bs-toggle="tooltip" title="Google scholar" data-bs-placement="bottom">
-						<img src="{{ static('big/image/google.svg') }}" width="24">
+					<a href="{{ member.google }}" data-bs-toggle="tooltip" title="Google scholar" data-bs-placement="bottom">
+						<img src="{{ static('big/image/google.svg') }}" class="border border-2 rounded-circle p-1" width="36">
 					</a>
 					{% endif %}
 				</p>
