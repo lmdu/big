@@ -37,7 +37,7 @@
 				<p>
 					{% if member.email %}
 					<a href="#" data-bs-toggle="tooltip" title="{{ member.email.replace('@', ' at ') }}" data-bs-placement="bottom">
-						<img src="{{ static('big/image/envelope.svg') }}" class="border border-2 rounded-circle p-1 me-2" width="36">
+						<img src="{{ static('big/image/email.svg') }}" class="border border-2 rounded-circle p-1 me-2" width="36">
 					</a>
 					{% endif %}
 					{% if member.github %}
@@ -52,7 +52,7 @@
 					{% endif %}
 					{% if member.google %}
 					<a href="{{ member.google }}" data-bs-toggle="tooltip" title="Google scholar" data-bs-placement="bottom">
-						<img src="{{ static('big/image/scholar.png') }}" class="border border-2 rounded-circle p-1" width="36">
+						<img src="{{ static('big/image/scholar.svg') }}" class="border border-2 rounded-circle p-1" width="36">
 					</a>
 					{% endif %}
 				</p>

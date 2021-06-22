@@ -5,16 +5,17 @@
 <div class="container mt-5">
 	<div class="d-flex">
 		<div class="flex-shrink-0">
-			<div class="text-muted text-end">
+			<div class="bg-light fs-5 p-4 text-center text-muted border rounded">
 				{% if lang %}
-				{{ time_format(post.created, 'Y-m-d') }}
+				<div>{{ time_format(post.created, 'm-d') }}</div>
 				{% else %}
-				{{ time_format(post.created, 'M j, Y') }}
+				<div>{{ time_format(post.created, 'M j') }}</div>
 				{% endif %}
+				<div>{{ time_format(post.created, 'Y') }}</div>
 			</div>
 		</div>
 		<div class="flex-grow-1 ps-sm-2 ps-md-5">
-			<h2 class="post-title">
+			<h2 class="post-title text-success">
 				{{ post.title }}
 			</h2>
 			<!--{% if post.banner %}
@@ -26,7 +27,7 @@
 				<img class="mb-3 img-fluid" src="{{ post.thumbnail.url }}">
 			</div>
 			{% endif %}-->
-			<div class="mt-4 lh-lg">
+			<div class="mt-4 lh-lg post-content">
 				{{ post.content | safe }}
 			</div>
 		</div>
