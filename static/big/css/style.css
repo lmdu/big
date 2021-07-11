@@ -7,6 +7,10 @@ a{
 	text-decoration: none;
 }
 
+.lh-xl{
+	line-height:  2.5!important;
+}
+
 /* header */
 .menubar{
 	background-color: rgba(0, 0, 0, .85);
@@ -78,7 +82,9 @@ hr.divider {
 .post-meta {
 	font-size: 14px;
 }*/
-
+.post-content{
+	color: #333;
+}
 .post-content a{
 	color: #198754;
 	text-decoration: none;
