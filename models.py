@@ -204,11 +204,14 @@ class Fund(BaseModel):
 	category = models.CharField(max_length=50)
 	source = models.CharField(max_length=255)
 	approve_amount = models.FloatField()
-	approve_time = models.DateTimeField()
-	start_time = models.DateTimeField(blank=True)
-	end_time = models.DateTimeField(blank=True)
+	approve_time = models.DateField()
+	start_time = models.DateField(blank=True)
+	end_time = models.DateField(blank=True)
 	comment = models.TextField(blank=True)
 	create_time = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.name
 
 	class Meta:
 		ordering = ['-create_time']
@@ -228,7 +231,8 @@ class Expense(BaseModel):
 	fund = models.ForeignKey(Fund, on_delete=models.CASCADE)
 	category = models.SmallIntegerField(choices=CATEGORIES, default=0)
 	amount = models.FloatField()
-	ticket = models.ForeignKey(Media, on_delete=models.CASCADE)
+	company = models.CharField(max_length=255, blank=True)
+	ticket = models.FileField(upload_to='big/tickets/%Y/%m')
 	comment = models.TextField(blank=True)
 	create_time = models.DateTimeField(auto_now_add=True)
 

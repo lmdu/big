@@ -1,0 +1,37 @@
+{% set page_name = "big:fund" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("项目列表") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row mt-5">
+		<div class="col">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>项目名称</th>
+						<th>立项编号</th>
+						<th>项目类别</th>
+						<th>项目来源</th>
+						<th>批准金额</th>
+						<th>财务编号</th>
+						<th>立项时间</th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+					{% for fund in funds %}
+					<tr>
+						<td><a href="{{ url('big:expense', kwargs={'fid':fund.id}) }}">{{ fund.name }}</a></td>
+						<td>{{ fund.approve_code }}</td>
+						<td>{{ fund.category }}</td>
+						<td>{{ fund.source }}</td>
+						<td>{{ fund.approve_amount }}</td>
+						<td>{{ fund.finance_code }}</td>
+						<td>{{ time_format(fund.approve_time, 'Y-m-d') }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -27,4 +27,6 @@ urlpatterns = [
 	path('resetpasswd', views.resetpasswd, name='resetpasswd'),
 	path('upload', views.upload, name='upload'),
 	path('browser', views.browser, name='browser'),
+	path('fund', views.fund, name='fund'),
+	path('expense/<fid>', views.expense, name='expense')
 ]

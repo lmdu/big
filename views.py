@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.db.models import Sum
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
@@ -170,7 +171,7 @@ def profile(request):
 		
 		if avatar:
 			member.avatar = avatar
-		
+
 		member.email = data['email']
 		member.name_zh = data['name_zh']
 		member.name_en = data['name_en']
@@ -359,3 +360,18 @@ def browser(request):
 			}
 		})
 
+@login_required(login_url='/signin')
+def fund(request):
+	funds = Fund.objects.all()
+	return render(request, 'big/fund.html', {'funds':funds})
+
+@login_required(login_url='/signin')
+def expense(request, fid):
+	fid = int(fid)
+	fund = Fund.objects.get(pk=fid)
+	expenses = Expense.objects.filter(fund__pk=fid)
+	expend = Expense.objects.filter(fund__pk=fid).aggregate(money=Sum('amount'))
+	return render(request, 'big/expense.html', {
+		'expenses':expenses, 'fund':fund,
+		'expend': expend
+	})

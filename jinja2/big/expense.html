@@ -1,0 +1,66 @@
+{% set page_name = "big:expense" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("项目报销") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row mt-5">
+		<div class="col">
+			<table class="table table-bordered">
+				<tr>
+					<th>项目名称</th>
+					<td colspan="7">{{ fund.name }}</td>
+					<th>立项编号</th>
+					<td>{{ fund.approve_code }}</td>
+				</tr>
+				<tr>
+					<th>项目类别</th>
+					<td colspan="3">{{ fund.category }}</td>
+					<th>项目来源</th>
+					<td colspan="3">{{ fund.source }}</td>
+					<th>财务编号</th>
+					<td>{{ fund.finance_code }}</td>
+				</tr>
+				<tr>
+					<th>总经费</th>
+					<td>{{ fund.approve_amount }}</td>
+					<th>剩余经费</th>
+					<td>{{ fund.approve_amount - expend.money }}</td>
+					<th>立项日期</th>
+					<td>{{ time_format(fund.approve_time, 'Y-m-d') }}</td>
+					<th>开始日期</th>
+					<td>{{ time_format(fund.start_time, 'Y-m-d') }}</td>
+					<th>结题日期</th>
+					<td>{{ time_format(fund.end_time, 'Y-m-d') }}</td>
+				</tr>
+			</table>
+
+			<table class="table mt-5">
+				<thead>
+					<tr>
+						<th>报销类别</th>
+						<th>报销金额</th>
+						<th>报销日期</th>
+						<th>报销公司</th>
+						<th>报销票据</th>
+					</tr>
+				</thead>
+				<tbody class="table-group-divider">
+					{% for expense in expenses %}
+					<tr>
+						<td>{{ expense.get_category_display() }}</td>
+						<td>{{ expense.amount }}</td>
+						<td>{{ time_format(expense.create_time, 'Y-m-d') }}</td>
+						<td>{{ expense.company }}</td>
+						<td><a href="{{ expense.ticket.url }}" class="btn btn-sm btn-success">下载查看</a></td>
+					</tr>
+					{% endfor %}
+					<tr>
+						<td>合计</td>
+						<td colspan="4">{{ expend.money }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

@@ -28,3 +28,13 @@ migrations/0004_auto_20221209_1406.py
 migrations/__pycache__/0002_auto_20221209_1400.cpython-38.pyc
 migrations/__pycache__/0003_auto_20221209_1401.cpython-38.pyc
 migrations/__pycache__/0004_auto_20221209_1406.cpython-38.pyc
+migrations/0003_expense_fund.py
+migrations/0004_alter_expense_ticket.py
+migrations/0005_auto_20221209_2026.py
+migrations/0006_expense_company.py
+migrations/0007_alter_expense_company.py
+migrations/__pycache__/0003_expense_fund.cpython-38.pyc
+migrations/__pycache__/0004_alter_expense_ticket.cpython-38.pyc
+migrations/__pycache__/0005_auto_20221209_2026.cpython-38.pyc
+migrations/__pycache__/0006_expense_company.cpython-38.pyc
+migrations/__pycache__/0007_alter_expense_company.cpython-38.pyc
