@@ -197,6 +197,44 @@ class Option(BaseModel):
 	thumbnail = models.ImageField(upload_to='big/thumbnail', blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 
+class Fund(BaseModel):	
+	name = models.CharField(max_length=255)
+	approve_code = models.CharField(max_length=50)
+	finance_code = models.CharField(max_length=50)
+	category = models.CharField(max_length=50)
+	source = models.CharField(max_length=255)
+	approve_amount = models.FloatField()
+	approve_time = models.DateTimeField()
+	start_time = models.DateTimeField(blank=True)
+	end_time = models.DateTimeField(blank=True)
+	comment = models.TextField(blank=True)
+	create_time = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		ordering = ['-create_time']
+
+class Expense(BaseModel):
+	CATEGORIES = (
+		(1, _("材料费")),
+		(2, _("测序费")),
+		(3, _("设备费")),
+		(4, _("劳务费")),
+		(5, _("差旅费")),
+		(6, _("版面费")),
+		(7, _("咨询费")),
+		(0, _("其他费"))
+	)
+
+	fund = models.ForeignKey(Fund, on_delete=models.CASCADE)
+	category = models.SmallIntegerField(choices=CATEGORIES, default=0)
+	amount = models.FloatField()
+	ticket = models.ForeignKey(Media, on_delete=models.CASCADE)
+	comment = models.TextField(blank=True)
+	create_time = models.DateTimeField(auto_now_add=True)
+
+	class Meta:
+		ordering = ['-create_time']
+
 @receiver(pre_delete, sender=Slideshow)
 def delete_slide(sender, instance, **kwargs):
 	instance.image.delete(True)

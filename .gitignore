@@ -22,3 +22,9 @@ migrations/__pycache__/0001_initial.cpython-38.pyc
 migrations/__pycache__/__init__.cpython-38.pyc
 migrations/0002_auto_20221102_2133.py
 migrations/__pycache__/0002_auto_20221102_2133.cpython-38.pyc
+migrations/0002_auto_20221209_1400.py
+migrations/0003_auto_20221209_1401.py
+migrations/0004_auto_20221209_1406.py
+migrations/__pycache__/0002_auto_20221209_1400.cpython-38.pyc
+migrations/__pycache__/0003_auto_20221209_1401.cpython-38.pyc
+migrations/__pycache__/0004_auto_20221209_1406.cpython-38.pyc

@@ -37,3 +37,11 @@ class MediaAdmin(admin.ModelAdmin):
 @admin.register(Option)
 class OptionAdmin(admin.ModelAdmin):
 	list_display = ('id', 'name', 'title_zh', 'content_zh', 'created')
+
+@admin.register(Fund)
+class FundAdmin(admin.ModelAdmin):
+	list_display = ('id', 'name', 'category', 'approve_code', 'approve_amount', 'approve_time')
+
+@admin.register(Expense)
+class ExpenseAdmin(admin.ModelAdmin):
+	list_display = ('id', 'fund', 'category', 'amount', 'create_time')
