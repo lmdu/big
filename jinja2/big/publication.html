@@ -21,27 +21,27 @@
 					</p>
 					<p class="collapse" id="abstract-{{ research.id }}">{{ research.abstract }}</p>
 					<div class="mt-4">
-						<div class="btn-group btn-group-xs" role="group">
+						<div class="btn-group btn-group-sm" role="group">
 							<button class="btn btn-primary">DOI</button>
 							<a class="btn btn-outline-primary" href="https://doi.org/{{ research.doi }}" target="_blank">{{ research.doi }}</a>
 						</div>
 						{% if research.pmid %}
-						<div class="btn-group btn-group-xs" role="group">
+						<div class="btn-group btn-group-sm" role="group">
 							<button class="btn btn-success">PMID</button>
 							<a class="btn btn-outline-success" href="https://pubmed.ncbi.nlm.nih.gov/{{ research.pmid }}" target="_blank">{{ research.pmid }}</a>
 						</div>
 						{% endif %}
 						{% if research.factor %}
-						<div class="btn-group btn-group-xs" role="group">
+						<div class="btn-group btn-group-sm" role="group">
 							<button class="btn btn-danger">IF</button>
 							<button class="btn btn-outline-danger">{{ research.factor }}</button>
 						</div>
 						{% endif %}
 						{% if research.pdf %}
-						<a class="btn btn-xs btn-outline-dark" href="{{ research.pdf.url }}" target="_blank">PDF</a>
+						<a class="btn btn-sm btn-outline-dark" href="{{ research.pdf.url }}" target="_blank">PDF</a>
 						{% endif %}
 						{% if research.abstract %}
-						<button class="btn btn-xs btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#abstract-{{ research.id }}">Abstract</button>
+						<button class="btn btn-sm btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#abstract-{{ research.id }}">Abstract</button>
 						{% endif %}
 					</div>
 				</div>

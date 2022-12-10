@@ -42,6 +42,7 @@
 						<th>报销日期</th>
 						<th>报销公司</th>
 						<th>报销凭证</th>
+						<th>备注</th>
 					</tr>
 				</thead>
 				<tbody class="table-group-divider">
@@ -51,24 +52,29 @@
 						<td>{{ expense.amount }}</td>
 						<td>{{ time_format(expense.create_time, 'Y-m-d') }}</td>
 						<td>{{ expense.company }}</td>
-						{% if expense.invoice %}
-						<td><a href="{{ expense.invoice.url }}" class="btn btn-sm btn-danger">发票</a></td>
-						{% endif %}
-						{% if expense.ticket %}
-						<td><a href="{{ expense.ticket.url }}" class="btn btn-sm btn-success">清单</a></td>
-						{% endif %}
-						{% if expense.comment %}
-						<td><button type="button" class="btn btn-sm btn-warning" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="{{ expense.comment }}">备注</button></td>
-						{% endif %}
+						<td>
+							{% if expense.invoice %}
+							<a href="{{ expense.invoice.url }}" class="btn btn-sm btn-danger">发票</a>
+							{% endif %}
+							{% if expense.ticket %}
+							<a href="{{ expense.ticket.url }}" class="btn btn-sm btn-success">清单</a>
+							{% endif %}
+						</td>
+						<td>
+							{{ expense.comment }}
+						</td>
 					</tr>
 					{% endfor %}
+					
+				</tbody>
+				<tfoot class="table-group-divider">
 					{% if expend.money %}
 					<tr>
-						<td>合计</td>
-						<td colspan="4">{{ expend.money }}</td>
+						<th class="border-bottom-0">合计</th>
+						<td colspan="5" class="border-bottom-0">{{ expend.money }}</td>
 					</tr>
 					{% endif %}
-				</tbody>
+				</tfoot>
 			</table>
 		</div>
 	</div>
