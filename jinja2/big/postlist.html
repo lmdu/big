@@ -24,12 +24,12 @@
 							<span class="badge bg-{{ status[post.approve] }}">{{ post.get_approve_display() }}</span>
 						</td>
 						<td>
-							<a href="{{ url('big:post', kwargs={'slug':post.slug}) }}" class="btn btn-xs btn-info" target="_blank">{{ _("预览") }}</a>
+							<a href="{{ url('big:post', kwargs={'slug':post.slug}) }}" class="btn btn-sm btn-info" target="_blank">{{ _("预览") }}</a>
 							{% if post.approve != 1 %}
-							<a href="{{ url('big:postedit', kwargs={'slug':post.slug}) }}" class="btn btn-xs btn-warning">{{ _("修改") }}</a>
-							<a href="{{ url('big:postdelete', kwargs={'slug':post.slug}) }}" class="btn btn-xs btn-danger">{{ _("删除") }}</a>
+							<a href="{{ url('big:postedit', kwargs={'slug':post.slug}) }}" class="btn btn-sm btn-warning">{{ _("修改") }}</a>
+							<a href="{{ url('big:postdelete', kwargs={'slug':post.slug}) }}" class="btn btn-sm btn-danger">{{ _("删除") }}</a>
 							{% else %}
-							<span class="btn btn-xs btn-secondary">{{ _("如需修改请联系管理员") }}</span>
+							<span class="btn btn-sm btn-secondary">{{ _("如需修改请联系管理员") }}</span>
 							{% endif %}
 						</td>
 					</tr>
