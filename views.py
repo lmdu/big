@@ -371,6 +371,10 @@ def expense(request, fid):
 	fund = Fund.objects.get(pk=fid)
 	expenses = Expense.objects.filter(fund__pk=fid)
 	expend = Expense.objects.filter(fund__pk=fid).aggregate(money=Sum('amount'))
+
+	if expend['money'] is None:
+		expend['money'] = 0
+
 	return render(request, 'big/expense.html', {
 		'expenses':expenses, 'fund':fund,
 		'expend': expend

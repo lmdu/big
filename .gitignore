@@ -38,3 +38,5 @@ migrations/__pycache__/0004_alter_expense_ticket.cpython-38.pyc
 migrations/__pycache__/0005_auto_20221209_2026.cpython-38.pyc
 migrations/__pycache__/0006_expense_company.cpython-38.pyc
 migrations/__pycache__/0007_alter_expense_company.cpython-38.pyc
+migrations/0008_auto_20221210_1109.py
+migrations/__pycache__/0008_auto_20221210_1109.cpython-38.pyc

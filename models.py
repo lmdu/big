@@ -232,7 +232,8 @@ class Expense(BaseModel):
 	category = models.SmallIntegerField(choices=CATEGORIES, default=0)
 	amount = models.FloatField()
 	company = models.CharField(max_length=255, blank=True)
-	ticket = models.FileField(upload_to='big/tickets/%Y/%m')
+	invoice = models.FileField(upload_to='big/invoices/%Y/%m', blank=True)
+	ticket = models.FileField(upload_to='big/tickets/%Y/%m', blank=True)
 	comment = models.TextField(blank=True)
 	create_time = models.DateTimeField(auto_now_add=True)
 

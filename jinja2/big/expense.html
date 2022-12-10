@@ -41,7 +41,7 @@
 						<th>报销金额</th>
 						<th>报销日期</th>
 						<th>报销公司</th>
-						<th>报销票据</th>
+						<th>报销凭证</th>
 					</tr>
 				</thead>
 				<tbody class="table-group-divider">
@@ -51,13 +51,23 @@
 						<td>{{ expense.amount }}</td>
 						<td>{{ time_format(expense.create_time, 'Y-m-d') }}</td>
 						<td>{{ expense.company }}</td>
-						<td><a href="{{ expense.ticket.url }}" class="btn btn-sm btn-success">下载查看</a></td>
+						{% if expense.invoice %}
+						<td><a href="{{ expense.invoice.url }}" class="btn btn-sm btn-danger">发票</a></td>
+						{% endif %}
+						{% if expense.ticket %}
+						<td><a href="{{ expense.ticket.url }}" class="btn btn-sm btn-success">清单</a></td>
+						{% endif %}
+						{% if expense.comment %}
+						<td><button type="button" class="btn btn-sm btn-warning" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="{{ expense.comment }}">备注</button></td>
+						{% endif %}
 					</tr>
 					{% endfor %}
+					{% if expend.money %}
 					<tr>
 						<td>合计</td>
 						<td colspan="4">{{ expend.money }}</td>
 					</tr>
+					{% endif %}
 				</tbody>
 			</table>
 		</div>
