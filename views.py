@@ -14,6 +14,7 @@ from .models import *
 # Create your views here.
 def index(request):
 	slides = Slideshow.objects.all()[0:5]
+	sliden = slides.count()
 	pubs = Publication.objects.all()[0:5]
 	posts = Post.objects.filter(approve=1)[0:8]
 	introduce = Option.objects.filter(name='introduce').first()
@@ -22,6 +23,7 @@ def index(request):
 
 	return render(request, 'big/index.html', {
 		'slides': slides,
+		'sliden': sliden,
 		'pubs': pubs,
 		'posts': posts,
 		'introduce': introduce,
