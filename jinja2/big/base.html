@@ -13,14 +13,14 @@
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-dark menubar">
 	<div class="container">
-		<a class="navbar-brand" href="{{ url('big:index') }}">
-			<img src="{{ static('big/image/logo.svg') }}" width="60" height="60" class="animate-turn">
+		<a class="navbar-brand logo" href="{{ url('big:index') }}">
+			<img src="{{ static('big/image/logo.svg') }}" width="72" height="72" class="animate-turn">
 			<span class="d-none d-md-inline-block">{{ _("生物信息学与整合基因组学课题组") }}</span>
 		</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu" aria-controls="menu" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		{% set menus = (('big:index', _("首页")), ('big:news', _("最新动态")), ('big:member', _("团队成员")), ('big:research', _("研究方向")), ('big:publication', _("研究成果")), ('big:software', _("软件资源"))) %}
+		{% set menus = (('big:index', _("首页")), ('big:news', _("最新动态")), ('big:member', _("团队成员")), ('big:research', _("研究方向")), ('big:publication', _("研究成果")), ('big:softwares', _("软件资源"))) %}
 		<div class="collapse navbar-collapse" id="menu">
 			<ul class="navbar-nav flex-row flex-wrap pt-2 py-md-0 ms-md-auto">
 				{% for menu in menus %}
@@ -116,6 +116,8 @@
 
 <script src="{{ static('big/js/bootstrap.bundle.min.js') }}"></script>
 <script type="text/javascript">
+
+//laguage change buttons
 var btns = document.querySelectorAll(".change-lang-btn");
 for (var i = 0; i < btns.length; i++) {
 	btns[i].addEventListener('click', function(event){
@@ -124,6 +126,54 @@ for (var i = 0; i < btns.length; i++) {
 		document.querySelector('#change-lang').submit();
 	});
 }
+
+//menubar scroll action
+window.addEventListener('scroll', function(e) {
+	var logo = document.querySelector('.logo img');
+
+	if (window.scrollY > 0) {
+		logo.style.width = '36px';
+		logo.style.height = '36px';
+		logo.style.transitionDuration='0.3s';
+	} else {
+		if (window.innerWidth > 748) {
+			logo.style.width = '72px';
+			logo.style.height = '72px';
+			logo.style.transitionDuration='0.6s';
+		}
+	}
+});
+
+//slideshow
+function resize_slide() {
+	var slides = document.querySelectorAll('#slideshow .carousel-inner .carousel-item');
+	var dw = window.innerWidth;
+	var dh = window.innerHeight;
+	var ah = dh - document.querySelector('.menubar').offsetHeight;
+
+	var h = dw / 1.618;
+	h = Math.min(h, ah, 1000);
+
+	slides.forEach(function(slide){
+		slide.style.minHeight = h + 'px';
+	});
+
+	var logo = document.querySelector('.logo img');
+
+	if (window.innerWidth < 748) {
+		logo.style.width = '36px';
+		logo.style.height = '36px';
+		logo.style.transitionDuration = '0.3s';
+	} else {
+		logo.style.width = '72px';
+		logo.style.height = '72px';
+		logo.style.transitionDuration = '0.3s';
+	}
+}
+
+resize_slide();
+window.addEventListener('resize', resize_slide);
+
 </script>
 {% block script %}{% endblock %}
 

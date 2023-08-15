@@ -1,0 +1,78 @@
+{% set page_name = "big:software" %}
+{% extends "big/base.html" %}
+{% block title %}{{ _("软件资源") }} - {% endblock %}
+{% block main %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			{% for s in softwares %}
+			<div class="card bg-light mt-5">
+				<div class="card-body">
+					<h5 class="card-title border-bottom border-success border-3 pb-3">
+						<span class="badge bg-secondary">
+							{{ s.get_category_display() }}
+						</span>
+						{{ s.name }}
+						<small class="float-end">
+							{% if s.category == 1 %}
+							<a href="{{ s.url }}" target="_blank">
+								<img src="{{ static('big/image/github.svg') }}">
+							</a>
+							{% else %}
+							<a href="{{ s.url }}" target="_blank">
+								<img src="{{ static('big/image/globe.svg') }}">
+							</a>
+							{% endif %}
+						</small>
+					</h5>
+					<div class="row mt-4 gy-3 gy-md-0">
+						<div class="col-md-2">
+							{% if s.thumbnail %}
+							<div class="animate-hover">
+								<a href="{{ url('big:software', kwargs={'sname':s.short}) }}"><img src="{{ s.thumbnail.url }}" class="img-fluid"></a>
+							</div>
+							{% endif %}
+						</div>
+						<div class="col-md-10 ps-md-5 lh-lg">
+							{{ s.description | safe }}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	
+	{% if softwares.paginator.num_pages > 1 %}
+	<div class="row mt-5">
+		<div class="col">
+			<div aria-label="Page navigation">
+				<ul class="pagination justify-content-center">
+					{% if softwares.has_previous() %}
+					<li class="page-item">
+						<a href="?page={{ softwares.previous_page_number }}" class="page-link link-success">{{ _("上一页") }}</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ _("上一页") }}</a>
+					</li>
+					{% endif %}
+					<li class="page-item disabled">
+						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ softwares.number }}</a>
+					</li>
+					{% if softwares.has_next() %}
+					<li class="page-item">
+						<a href="?page={{ softwares.next_page_number }}" class="page-link link-success">{{ _("下一页") }}</a>
+					</li>
+					{% else %}
+					<li class="page-item disabled">
+						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ _("下一页") }}</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+</div>
+{% endblock %}

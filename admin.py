@@ -30,6 +30,14 @@ class SlideAdmin(admin.ModelAdmin):
 class SoftwareAdmin(admin.ModelAdmin):
 	list_display = ('id', 'name_zh', 'url', 'category', 'description_zh', 'created')
 
+@admin.register(Version)
+class VersionAdmin(admin.ModelAdmin):
+	list_display = ('id', 'version', 'software', 'created')
+
+@admin.register(Download)
+class DownloadAdmin(admin.ModelAdmin):
+	list_display = ('id', 'system', 'file', 'uploaded', 'version')
+
 @admin.register(Media)
 class MediaAdmin(admin.ModelAdmin):
 	list_display = ('id', 'file', 'ctype', 'size', 'uploaded')

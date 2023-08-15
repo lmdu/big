@@ -76,13 +76,35 @@ def research(request):
 	researches = Research.objects.all()
 	return render(request, 'big/research.html', {'researches': researches})
 
-def software(request):
+def softwares(request):
 	software_list = Software.objects.all()
 	paginator = Paginator(software_list, 10)
 	page = request.GET.get('page')
 	softwares = paginator.get_page(page)
-	return render(request, 'big/software.html', {
+	return render(request, 'big/softwares.html', {
 		'softwares': softwares,
+	})
+
+def software(request, sname):
+	try:
+		software = Software.objects.get(short=sname)
+	except:
+		return HttpResponseNotFound("Could not find software {}".format(sname))
+
+	versions = Version.objects.filter(software=software)
+
+	try:
+		latest = versions.order_by('-created').first()
+		downloads = Download.objects.filter(version=latest, represent=True).order_by('system')
+	except:
+		downloads = None
+		latest = None
+
+	return render(request, 'big/software.html', {
+		'software': software,
+		'versions': versions,
+		'latest': latest,
+		'downloads': downloads
 	})
 
 def about(request):

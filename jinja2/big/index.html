@@ -9,24 +9,21 @@
   	</div>
 	<div class="carousel-inner">
 		{% for slide in slides %}
-		<div class="carousel-item {% if loop.first %} active {% endif %}" data-bs-interval="2500">
-			{% if slide.link %}
-			<a href="{{ slide.link }}">
-				<img src="{{ slide.image.url }}" class="d-block w-100 ">
-			</a>
-			{% else %}
-			<img src="{{ slide.image.url }}" class="d-block w-100">
-			{% endif %}
-			{% if slide.title or slide.description or slide.extra %}
-			<div class="carousel-caption d-none d-md-block">
-				{% if slide.title %}
-				<h4>{{ slide.title }}</h4>
-				{% endif %}
-				{% if slide.description %}
-				<div>{{ slide.description | safe }}</div>
-				{% endif %}
+		<div class="carousel-item position-relative {% if loop.first %} active {% endif %}" data-bs-interval="2500" style="background-image:url({{ slide.image.url }});">
+			{% if slide.title or slide.description %}
+			<div class="position-absolute w-75 top-50 start-50 slide-slogo text-center">
+				<div class="slide-title p-5 rounded-2">
+					{% if slide.title %}
+					<h2>{{ slide.title }}</h2>
+					{% endif %}
+					{% if slide.description %}
+					<div class="mt-3">{{ slide.description | safe }}</div>
+					{% endif %}
+				</div>
 				{% if slide.extra %}
-				<p>{{ slide.extra }}</p>
+				<div class="slide-extra mt-4">
+					{{ slide.extra | safe }}
+				</div>
 				{% endif %}
 			</div>
 			{% endif %}

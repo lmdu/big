@@ -137,8 +137,8 @@ class Slideshow(BaseModel):
 	description_en = models.TextField(blank=True)
 	image = models.ImageField(upload_to='big/slide/')
 	link = models.CharField(max_length=255, blank=True)
-	extra_zh = models.CharField(max_length=255, blank=True)
-	extra_en = models.CharField(max_length=255, blank=True)
+	extra_zh = models.TextField(blank=True)
+	extra_en = models.TextField(blank=True)
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):
@@ -159,14 +159,58 @@ class Software(BaseModel):
 	doc = models.CharField(max_length=255, blank=True)
 	language = models.CharField(max_length=30, blank=True)
 	category = models.SmallIntegerField(choices=TYPES, default=0)
-	download = models.CharField(max_length=255, blank=True)
+	comment_zh = models.TextField(blank=True)
+	comment_en = models.TextField(blank=True)
 	description_zh = models.TextField(blank=True)
 	description_en = models.TextField(blank=True)
 	thumbnail = models.ImageField(upload_to='big/thumbnail/', blank=True)
+	logo = models.ImageField(upload_to='big/logos/', blank=True)
+	short = models.CharField(max_length=30)
 	created = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return self.name_zh
 
 	class Meta:
 		ordering = ['-created']
+
+class Version(BaseModel):
+	version = models.CharField(max_length=20)
+	changelog_zh = models.TextField(blank=True)
+	changelog_en = models.TextField(blank=True)
+	created = models.DateTimeField(auto_now_add=True)
+	software = models.ForeignKey(Software, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return '{} - {}'.format(self.software.name_zh, self.version)
+
+	class Meta:
+		ordering = ['-created']
+
+class Download(BaseModel):
+	SYSTEMS = (
+		(1, 'Windows'),
+		(2, 'MacOS'),
+		(3, 'Linux'),
+		(4, 'Linux-Modern'),
+		(5, 'Ubuntu'),
+		(6, 'Fedora'),
+		(7, 'AlmaLinux'),
+		(8, 'Deepin')
+	)
+	system = models.SmallIntegerField(choices=SYSTEMS, default=0)
+	comment_zh = models.CharField(max_length=255, blank=True)
+	comment_en = models.CharField(max_length=255, blank=True)
+	file = models.FileField(upload_to='big/files/%Y/%m')
+	represent = models.BooleanField(default=False)
+	uploaded = models.DateTimeField(auto_now_add=True)
+	version = models.ForeignKey(Version, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.file.name
+
+	class Meta:
+		ordering = ['-uploaded']
 
 class Research(BaseModel):
 	direction_zh = models.TextField()

@@ -1,78 +1,139 @@
 {% set page_name = "big:software" %}
 {% extends "big/base.html" %}
-{% block title %}{{ _("软件资源") }} - {% endblock %}
+{% block title %}{{ software.name }} - {{ _("软件资源") }} - {% endblock %}
 {% block main %}
 <div class="container">
-	<div class="row">
-		<div class="col">
-			{% for s in softwares %}
-			<div class="card bg-light mt-5">
-				<div class="card-body">
-					<h5 class="card-title border-bottom border-success border-3 pb-3">
-						<span class="badge bg-secondary">
-							{{ s.get_category_display() }}
-						</span>
-						{{ s.name }}
-						<small class="float-end">
-							{% if s.category == 1 %}
-							<a href="{{ s.url }}" target="_blank">
-								<img src="{{ static('big/image/github.svg') }}">
-							</a>
-							{% else %}
-							<a href="{{ s.url }}" target="_blank">
-								<img src="{{ static('big/image/globe.svg') }}">
-							</a>
-							{% endif %}
-						</small>
-					</h5>
-					<div class="row mt-4 gy-3 gy-md-0">
-						<div class="col-md-4">
-							{% if s.thumbnail %}
-							<div class="animate-hover">
-								<img src="{{ s.thumbnail.url }}" class="img-fluid">
-							</div>
-							{% endif %}
-						</div>
-						<div class="col-md-8 ps-md-5 lh-lg">
-							{{ s.description | safe }}
-						</div>
+	<div class="h-100 p-5 bg-body-tertiary border rounded-5 mt-5">
+		<div class="row align-items-center">
+			<div class="col-md-6">
+				<div class="fs-1">{{ software.name }}</div>
+				<div class="mt-4 lh-lg">{{ software.comment }}</div>
+				{% if software.category == 1 %}
+				<div class="mt-4">
+					<a href="#download" class="btn btn-primary">{{ _("免费下载") }}</a>
+					{% if latest %}
+					<a href="#history" class="btn btn-outline-secondary">{{ _("历史版本") }}</a>
+					{% endif %}
+				</div>
+				{% else %}
+				<div class="mt-4">
+					<a href="{{ software.url }}" class="btn btn-primary">{{ _('浏览数据库') }}</a>
+				</div>
+				{% endif %}
+			</div>
+			<div class="col-md-6">
+				<div class="text-center">
+					{% if software.thumbnail %}
+					<div class="animate-hover">
+						<img src="{{ software.thumbnail.url }}" class="img-fluid" style="max-width: 450px;">
 					</div>
+					{% elif software.logo %}
+					<div class="animate-hover">
+						<img src="{{ software.logo.url }}" class="img-fluid" style="max-width: 450px;">
+					</div>
+					{% endif %}
 				</div>
 			</div>
-			{% endfor %}
+		</div>
+	</div>
+
+	<div class="row mt-5">
+		<div class="col">
+			<div class="text-center">
+				{% if latest %}
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-primary">{{ _('最新版本') }}</button>
+					<button type="button" class="btn btn-outline-primary">{{ latest.version }}</button>
+				</div>
+				{% endif %}
+				{% if software.language %}
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-secondary">{{ _('开发语言') }}</button>
+					<button type="button" class="btn btn-outline-secondary">{{ software.language }}</button>
+				</div>
+				{% endif %}
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-danger">{{ _('主页') }}</button>
+					<a href="{{ software.url }}" class="btn btn-outline-danger">{{ software.url }}</a>
+				</div>
+				{% if software.doc %}
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-success">{{ _('文档') }}</button>
+					<a href="{{ software.doc }}" class="btn btn-outline-success">{{ software.doc }}</a>
+				</div>
+				{% endif %}
+			</div>
+			<div class="lh-lg mt-4">{{ software.description | safe }}</div>
 		</div>
 	</div>
 	
-	{% if softwares.paginator.num_pages > 1 %}
-	<div class="row mt-5">
+	{% if downloads %}
+	<div class="row row-cols-1 row-cols-md-4 g-5 mt-5" id="download">
+		{% for d in downloads %}
 		<div class="col">
-			<div aria-label="Page navigation">
-				<ul class="pagination justify-content-center">
-					{% if softwares.has_previous() %}
-					<li class="page-item">
-						<a href="?page={{ softwares.previous_page_number }}" class="page-link link-success">{{ _("上一页") }}</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled">
-						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ _("上一页") }}</a>
-					</li>
-					{% endif %}
-					<li class="page-item disabled">
-						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ softwares.number }}</a>
-					</li>
-					{% if softwares.has_next() %}
-					<li class="page-item">
-						<a href="?page={{ softwares.next_page_number }}" class="page-link link-success">{{ _("下一页") }}</a>
-					</li>
-					{% else %}
-					<li class="page-item disabled">
-						<a href="#" class="page-link" tabindex="-1" aria-disabled="true">{{ _("下一页") }}</a>
-					</li>
-					{% endif %}
-				</ul>
-			</div>
+			<a class="card text-bg-light" href="{{ d.file.url }}">
+				<div class="card-body text-center">
+					<div>
+						{% if d.system == 1 %}
+						<img src="{{ static('big/image/windows.svg') }}" class="img-fluid" width="48">
+						{% elif d.system == 2 %}
+						<img src="{{ static('big/image/apple.svg') }}" class="img-fluid" width="48">
+						{% elif d.system == 5 %}
+						<img src="{{ static('big/image/ubuntu.svg') }}" class="img-fluid" width="48">
+						{% else %}
+						<img src="{{ static('big/image/linux.svg') }}" class="img-fluid" width="48">
+						{% endif %}
+					</div>
+					<div class="fs-4 mt-5">
+						{{ d.get_system_display() }}, 64bit
+					</div>
+					<div class="mt-3">
+						<img src="{{ static('big/image/down.svg') }}" class="img-fluid" width="32">
+					</div>
+				</div>
+			</a>
 		</div>
+		{% endfor %}
 	</div>
 	{% endif %}
+
+	{% for v in versions %}
+	<hr class="mt-5" id="history">
+	<div class="row mt-5">
+		<div class="col-md-2">
+			<div class="badge text-bg-info fs-6">{{ v.version }}</div>
+			<div class="mt-3">
+				{% if lang %}
+				{{ time_format(v.created, 'Y-m-d') }}
+				{% else %}
+				{{ time_format(v.created, 'M j, Y') }}
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-5 lh-lg">
+			{{ v.changelog | safe }}
+		</div>
+		<div class="col-md-5">
+			<ul class="list-unstyled lh-lg">
+				{% for d in v.download_set.all() %}
+				<li>
+					<a href="{{ d.file.url }}">
+						{% if d.system == 1 %}
+						<img src="{{ static('big/image/windows.svg') }}" class="img-fluid" width="20">
+						{% elif d.system == 2 %}
+						<img src="{{ static('big/image/apple.svg') }}" class="img-fluid" width="20">
+						{% elif d.system == 5 %}
+						<img src="{{ static('big/image/ubuntu.svg') }}" class="img-fluid" width="20">
+						{% else %}
+						<img src="{{ static('big/image/linux.svg') }}" class="img-fluid" width="20">
+						{% endif %}
+						{{ d.file.name.split('/')[-1] }}
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% endfor %}
 </div>
 {% endblock %}
