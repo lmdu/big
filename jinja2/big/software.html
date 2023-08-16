@@ -99,8 +99,9 @@
 	</div>
 	{% endif %}
 
+	<div id="history"></div>
 	{% for v in versions %}
-	<hr class="mt-5" id="history">
+	<hr class="mt-5" >
 	<div class="row mt-5 row-gap-4">
 		<div class="col-md-2">
 			<div class="badge text-bg-info fs-6">{{ v.version }}</div>
@@ -116,9 +117,9 @@
 			{{ v.changelog | safe }}
 		</div>
 		<div class="col-md-5">
-			<ul class="list-unstyled lh-lg">
+			<table class="table">
 				{% for d in v.download_set.all() %}
-				<li>
+				<tr><td>
 					<a href="{{ d.file.url }}">
 						{% if d.system == 1 %}
 						<img src="{{ static('big/image/windows.svg') }}" class="img-fluid" width="20">
@@ -131,9 +132,9 @@
 						{% endif %}
 						{{ d.file.name.split('/')[-1] }}
 					</a>
-				</li>
+				</td></tr>
 				{% endfor %}
-			</ul>
+			</table>
 		</div>
 	</div>
 	{% endfor %}
