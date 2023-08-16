@@ -4,15 +4,17 @@
 {% block main %}
 <div class="container">
 	<div class="h-100 p-5 bg-body-tertiary border rounded-5 mt-5">
-		<div class="row align-items-center">
+		<div class="row align-items-center row-gap-4">
 			<div class="col-md-6">
 				<div class="fs-1">{{ software.name }}</div>
 				<div class="mt-4 lh-lg">{{ software.comment }}</div>
 				{% if software.category == 1 %}
 				<div class="mt-4">
-					<a href="#download" class="btn btn-primary">{{ _("免费下载") }}</a>
 					{% if latest %}
+					<a href="#download" class="btn btn-primary">{{ _("免费下载") }}</a>
 					<a href="#history" class="btn btn-outline-secondary">{{ _("历史版本") }}</a>
+					{% else %}
+					<a href="{{ software.url }}" class="btn btn-primary">{{ _("查看主页") }}</a>
 					{% endif %}
 				</div>
 				{% else %}
@@ -25,11 +27,11 @@
 				<div class="text-center">
 					{% if software.thumbnail %}
 					<div class="animate-hover">
-						<img src="{{ software.thumbnail.url }}" class="img-fluid" style="max-width: 450px;">
+						<img src="{{ software.thumbnail.url }}" class="img-fluid">
 					</div>
 					{% elif software.logo %}
 					<div class="animate-hover">
-						<img src="{{ software.logo.url }}" class="img-fluid" style="max-width: 450px;">
+						<img src="{{ software.logo.url }}" class="img-fluid">
 					</div>
 					{% endif %}
 				</div>
@@ -41,23 +43,23 @@
 		<div class="col">
 			<div class="text-center">
 				{% if latest %}
-				<div class="btn-group" role="group">
+				<div class="btn-group mt-2 mt-md-0" role="group">
 					<button type="button" class="btn btn-primary">{{ _('最新版本') }}</button>
 					<button type="button" class="btn btn-outline-primary">{{ latest.version }}</button>
 				</div>
 				{% endif %}
 				{% if software.language %}
-				<div class="btn-group" role="group">
+				<div class="btn-group mt-2 mt-md-0" role="group">
 					<button type="button" class="btn btn-secondary">{{ _('开发语言') }}</button>
 					<button type="button" class="btn btn-outline-secondary">{{ software.language }}</button>
 				</div>
 				{% endif %}
-				<div class="btn-group" role="group">
+				<div class="btn-group mt-2 mt-md-0" role="group">
 					<button type="button" class="btn btn-danger">{{ _('主页') }}</button>
 					<a href="{{ software.url }}" class="btn btn-outline-danger">{{ software.url }}</a>
 				</div>
 				{% if software.doc %}
-				<div class="btn-group" role="group">
+				<div class="btn-group mt-2 mt-md-0" role="group">
 					<button type="button" class="btn btn-success">{{ _('文档') }}</button>
 					<a href="{{ software.doc }}" class="btn btn-outline-success">{{ software.doc }}</a>
 				</div>
@@ -68,7 +70,7 @@
 	</div>
 	
 	{% if downloads %}
-	<div class="row row-cols-1 row-cols-md-4 g-5 mt-5" id="download">
+	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 mt-5" id="download">
 		{% for d in downloads %}
 		<div class="col">
 			<a class="card text-bg-light" href="{{ d.file.url }}">
@@ -99,7 +101,7 @@
 
 	{% for v in versions %}
 	<hr class="mt-5" id="history">
-	<div class="row mt-5">
+	<div class="row mt-5 row-gap-4">
 		<div class="col-md-2">
 			<div class="badge text-bg-info fs-6">{{ v.version }}</div>
 			<div class="mt-3">

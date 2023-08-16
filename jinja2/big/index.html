@@ -12,12 +12,12 @@
 		<div class="carousel-item position-relative {% if loop.first %} active {% endif %}" data-bs-interval="2500" style="background-image:url({{ slide.image.url }});">
 			{% if slide.title or slide.description %}
 			<div class="position-absolute w-75 top-50 start-50 slide-slogo text-center">
-				<div class="slide-title p-5 rounded-2">
+				<div class="slide-title p-4 rounded-2">
 					{% if slide.title %}
 					<h2>{{ slide.title }}</h2>
 					{% endif %}
 					{% if slide.description %}
-					<div class="mt-3">{{ slide.description | safe }}</div>
+					<div class="mt-3 d-none d-sm-none d-md-block">{{ slide.description | safe }}</div>
 					{% endif %}
 				</div>
 				{% if slide.extra %}

@@ -4,9 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{{ static('big/css/bootstrap.min.css') }}">
-	<link rel="stylesheet" href="{{ static('big/css/style.css') }}">
-	<link rel="icon" href="{{ static('big/image/icon.svg') }}">
+	<link rel="stylesheet" href="{{ static('big/css/bootstrap.min.css') }}?ver=5.3.1">
+	<link rel="stylesheet" href="{{ static('big/css/style.css') }}?ver=1.5">
+	<link rel="icon" type="image/svg+xml" href="{{ static('big/image/icon.svg') }}">
 	{% block head %}{% endblock %}
 	<title>{% block title %}{% endblock %}{{ _("生物信息学与整合基因组学课题组") }}</title>
 </head>
@@ -114,7 +114,7 @@
 	</div>
 </footer>
 
-<script src="{{ static('big/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ static('big/js/bootstrap.bundle.min.js') }}?ver=5.3.1"></script>
 <script type="text/javascript">
 
 //laguage change buttons
