@@ -66,3 +66,5 @@ migrations/__pycache__/0008_auto_20230815_1545.cpython-38.pyc
 migrations/__pycache__/0009_download_represent.cpython-38.pyc
 migrations/__pycache__/0010_auto_20230815_2136.cpython-38.pyc
 migrations/__pycache__/__init__.cpython-310.pyc
+migrations/0011_software_citation.py
+migrations/__pycache__/0011_software_citation.cpython-38.pyc

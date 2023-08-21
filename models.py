@@ -166,6 +166,7 @@ class Software(BaseModel):
 	thumbnail = models.ImageField(upload_to='big/thumbnail/', blank=True)
 	logo = models.ImageField(upload_to='big/logos/', blank=True)
 	short = models.CharField(max_length=30)
+	citation = models.ForeignKey(Publication, null=True, blank=True, on_delete=models.CASCADE)
 	created = models.DateTimeField(auto_now_add=True)
 
 	def __str__(self):

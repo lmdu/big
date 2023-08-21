@@ -68,6 +68,19 @@
 			<div class="lh-lg mt-4">{{ software.description | safe }}</div>
 		</div>
 	</div>
+
+	{% if software.citation %}
+	<div class="row mt-5">
+		<div class="col">
+			<strong>Citation:</strong> <a href="https://doi.org/{{ software.citation.doi }}" class="lh-lg">
+				{{ software.citation.authors }}.
+				<strong>{{ software.citation.title }}</strong>.
+				<i>{{ software.citation.journal }}</i>,
+				{{ software.citation.year }}{% if software.citation.volume %}, {{ software.citation.volume }}{% endif %}{% if software.citation.issue %}({{ software.citation.issue }}){% endif %}{% if software.citation.pages %}:{{ software.citation.pages }}{% endif %}.
+			</a>
+		</div>
+	</div>
+	{% endif %}
 	
 	{% if downloads %}
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 mt-5" id="download">
