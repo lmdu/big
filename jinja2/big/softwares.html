@@ -1,4 +1,4 @@
-{% set page_name = "big:software" %}
+{% set page_name = "big:softwares" %}
 {% extends "big/base.html" %}
 {% block title %}{{ _("软件资源") }} - {% endblock %}
 {% block main %}
@@ -26,14 +26,14 @@
 						</small>
 					</h5>
 					<div class="row mt-4 gy-3 gy-md-0">
-						<div class="col-md-2">
+						<div class="col-sm-4 col-md-3">
 							{% if s.thumbnail %}
 							<div class="animate-hover">
 								<a href="{{ url('big:software', kwargs={'sname':s.short}) }}"><img src="{{ s.thumbnail.url }}" class="img-fluid"></a>
 							</div>
 							{% endif %}
 						</div>
-						<div class="col-md-10 ps-md-5 lh-lg">
+						<div class="col-sm-8 col-md-9 ps-sm-3 ps-md-5 lh-lg">
 							{{ s.description | safe }}
 						</div>
 					</div>
