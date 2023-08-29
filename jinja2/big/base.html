@@ -152,7 +152,7 @@ function resize_slide() {
 	var ah = dh - document.querySelector('.menubar').offsetHeight;
 
 	var h = dw / 1.618;
-	h = Math.min(h, ah, 1000);
+	h = Math.min(h, ah, 750);
 
 	slides.forEach(function(slide){
 		slide.style.minHeight = h + 'px';
