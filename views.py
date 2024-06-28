@@ -1,3 +1,5 @@
+import os
+
 from django.urls import reverse
 from django.db.models import Sum
 from django.contrib import messages
@@ -6,8 +8,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotFound, JsonResponse
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseNotFound, JsonResponse, FileResponse
 
 from .models import *
 
@@ -106,6 +108,15 @@ def software(request, sname):
 		'latest': latest,
 		'downloads': downloads
 	})
+
+def download(request, downid, sname):
+	downid = int(downid)
+	dlfile = Download.objects.get(pk=downid)
+	return FileResponse(
+		open(dlfile.file.path, 'rb'),
+		as_attachment = True,
+		filename = os.path.basename(dlfile.file.path)
+	)
 
 def about(request):
 	page = Option.objects.filter(name='aboutus').first()
