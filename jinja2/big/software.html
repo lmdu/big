@@ -86,7 +86,7 @@
 	<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5 mt-5" id="download">
 		{% for d in downloads %}
 		<div class="col">
-			<a class="card text-bg-light" href="{{ url('big:download', kwargs={'downid': d.id, 'sname': d.file.name.split('/')[-1]}) }}">
+			<a class="card text-bg-light" href="{{ d.file.url }}">
 				<div class="card-body text-center">
 					<div>
 						{% if d.system == 1 %}
@@ -133,7 +133,7 @@
 			<table class="table">
 				{% for d in v.download_set.all()[:10] %}
 				<tr><td>
-					<a href="{{ url('big:download', kwargs={'downid': d.id, 'sname': d.file.name.split('/')[-1]}) }}">
+					<a href="{{ d.file.url }}">
 						{% if d.system == 1 %}
 						<img src="{{ static('big/image/windows.svg') }}" class="img-fluid" width="20">
 						{% elif d.system == 2 %}
